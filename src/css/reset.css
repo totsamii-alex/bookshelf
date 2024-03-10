@@ -1,46 +1,9 @@
 /* Reset styles */
-* {
-    box-sizing: border-box;
-  }
-  html {
+
+  /* html {
     scroll-behavior: smooth;
-  }
-  
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p {
-    margin: 0;
-  }
-  
-  p:last-child {
-    margin-bottom: 0;
-  }
-  
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  
-  a {
-    color: currentColor;
-    text-decoration: none;
-  }
-  
-  button {
-    cursor: pointer;
-  }
-  
-  img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-  }
-  
+  } */
+
   .name-category {
     font-family: var(--myFont);
     font-weight: 700;
@@ -594,28 +557,7 @@
   
   
   
-  #congratulations {
-    display: none;
-    font-family: var(--myFont);
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 117%;
-    letter-spacing: -0.04em;
-    text-align: center;
-    color: rgba(17, 17, 17, 0.5);
-    max-width: 350px;
-    padding-top: 8px;
-    margin: auto;
-  }
-  .add-list-book {
-    display: block !important;
-  }
+
   .margin-add {
     margin-top: 40px;
   }
-  
-  /* body */
-.modal-open {
-    overflow: hidden;
-    padding-right: 22px !important;
-}

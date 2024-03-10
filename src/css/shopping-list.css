@@ -1,0 +1,44 @@
+/* general styles */
+.blue-color {
+    color: var(--colorBlue);
+}
+.shopping-list {
+    padding: 40px 0;
+}
+
+/* list books styles */
+.list-books {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.list-books-shop-list {
+    display: flex;
+    gap: 14px;
+}
+.main-container-shop-list {
+    flex: 1;
+}
+.title {
+    font-size: 16px;
+    color: var(--colorBlack);
+    font-weight: 600;
+}
+.list-name {
+    font-size: 12px;
+    color: var(--colorGray);
+}
+
+.description-shop-list {
+    font-size: 14px;
+    color: var(--colorBlack);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.image-shop-list {
+    width: 100px;
+    height: 142px;
+}

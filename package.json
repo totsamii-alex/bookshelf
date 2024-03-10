@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/totsamii-alex/bookshelf#readme",
   "devDependencies": {
+    "sass": "^1.71.1",
     "vite": "^5.1.5"
   },
   "dependencies": {

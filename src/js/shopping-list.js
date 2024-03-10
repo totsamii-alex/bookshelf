@@ -17,6 +17,7 @@ updateLocalStorage();
 window.addEventListener("load", async (e) => {
     e.preventDefault();
 
+    addColorLastWord("Shopping List");
     createSubArray(0, 3);
     showPagination();
 });
@@ -201,8 +202,8 @@ async function showBooksInShoppingList(book_id) {
                     <div class="text-content-shop-list">
                         <div class="top-content-shop-list">
                             <div class="text-book-container">
-                                <p>${data.title}</p>
-                                <p>${data.list_name}</p>
+                                <p class="title">${data.title}</p>
+                                <p class="list-name">${data.list_name}</p>
                             </div>
 
                             <div class="svg-delete-shop-list">
@@ -228,17 +229,8 @@ async function showBooksInShoppingList(book_id) {
     }
 }
 
-
-async function setColorGaleryList(e) {
-    const previousSelected = document.querySelector('.categories.selected');
-    if (previousSelected) {
-        previousSelected.classList.remove('selected');
-    }
-    if (typeof e === "string") {
-        const elementList = document.getElementById(e);
-        elementList.classList.add('selected');
-    }
-    else {
-        e.target.classList.add('selected');
-    }
+async function addColorLastWord (word) {
+    const lastSpaceIndex = word.lastIndexOf(' ');
+    const nameCategory = document.querySelector(".name-page");
+    nameCategory.innerHTML = `${word.substring(0, lastSpaceIndex)} <span class="blue-color">${word.substring(lastSpaceIndex + 1)}</span>`;
 }

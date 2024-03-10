@@ -1,5 +1,54 @@
+@import url(./reset.css);
+@import url(./books-list.css);
+@import url(./burger-menu.css);
+@import url(./footer.css);
+@import url(./header.css);
+@import url(./main-content.css);
+@import url(./modal-window.css);
+@import url(./scroll-up.css);
+@import url(./sign-up.css);
+@import url(./support-ukraine.css);
+@import url(./shopping-list.css);
+
 * {
     box-sizing: border-box;
+}
+
+:root {
+    --myFont: 'DM Sans';
+    --colorBlue: #4F2EE8;
+    --colorYellow: #EAC645;
+    --colorBlack: #202024;
+    --colorGray: #B4AFAF;
+
+    --textDescription-M: {
+        font-family: var(--myFont);
+        color: var(--colorBlack);
+        font-size: 12px;
+    };
+    --textDescription-TD: {
+        font-family: var(--myFont);
+        color: var(--colorBlack);
+        font-size: 14px;
+    };
+    --textAuthor: {
+        font-family: var(--myFont);
+        color: var(--colorGray);
+        font-size: 12px;
+    };
+    --textCategories: {
+        font-family: var(--myFont);
+        color: var(--colorBlack);
+        font-size: 14px;
+    };
+}
+
+body {
+    background-color: rgb(229, 229, 229);
+}
+
+button {
+    cursor: pointer;
 }
 
 ul {
@@ -8,6 +57,7 @@ ul {
 
 body,
 ul,
+p,
 h1,
 h2,
 h3,
@@ -20,11 +70,21 @@ h6 {
 
 img {
     object-fit: cover;
+    border-radius: 8px;
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color: currentColor;
+    text-decoration: none;
 }
 
 .container {
     max-width: 375px;
     padding: 0 20px;
+    margin: auto;
 }
 
 @media (min-width: 768px) and (max-width: 1440px) {
@@ -39,15 +99,3 @@ img {
         padding: 0 24px;
     }
 }
-
-@import url(./reset.css);
-@import url(./books-list.css);
-@import url(./burger-menu.css);
-@import url(./footer.css);
-@import url(./header.css);
-@import url(./main-content.css);
-@import url(./modal-window.css);
-@import url(./scroll-up.css);
-@import url(./sign-up.css);
-@import url(./support-ukraine.css);
-@import url(./shopping-list.css);
