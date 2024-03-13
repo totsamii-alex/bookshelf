@@ -1,6 +1,4 @@
 // local storage //
-let arrayBooksShop = getMapFromLocalStorage();
-
 export function getMapFromLocalStorage() {
     const serializedData = localStorage.getItem('arrayBooksShop');
     if (serializedData) {
@@ -10,11 +8,11 @@ export function getMapFromLocalStorage() {
     return new Map();
 }
 
-export function updateLocalStorage() {
+export function updateLocalStorage(arrayBooksShop) {
     const serializedData = JSON.stringify([...arrayBooksShop]);
     localStorage.setItem('arrayBooksShop', serializedData);
 }
 
-export function updateArrayMap() {
+export function updateArrayMap(arrayBooksShop) {
     arrayBooksShop = getMapFromLocalStorage();
 }

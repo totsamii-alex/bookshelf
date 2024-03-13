@@ -203,10 +203,6 @@
     background-color: #4F2EE8;
   }
   
-  :root {
-    --myFont: "DM Sans", sans-serif;
-  }
-  
   .side-content-list {
     display: flex;
     flex-direction: column;
@@ -214,19 +210,7 @@
     justify-content: space-between;
   }
   
-  .support-ukraine {
-    border-radius: 16px;
-    width: 335px;
-    height: 460px;
-    box-shadow: 0 10px 10px 0 rgba(245, 245, 247, 0.1);
-    background: radial-gradient(189.32% 190.93% at 59.76% -23.42%, rgb(79, 46, 232) 18.02733987569809%, rgb(255, 255, 255) 100%); 
-  }
-  
-  .header {
-    border: 1.50px solid black;
-    border-radius: 0 0 8px 8px;
-    height: 64px;
-  }
+
   
   .section-books-list {
     padding: 40px 0;

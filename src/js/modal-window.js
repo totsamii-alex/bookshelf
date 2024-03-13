@@ -8,7 +8,6 @@ const listOne = document.querySelector(".list-one");
 
 // local storage //
 let arrayBooksShop = getMapFromLocalStorage();
-updateLocalStorage();
 // local storage //
 
 listOne.addEventListener("click", async (e) => {
@@ -75,7 +74,7 @@ async function bookSaveInShop(buttonShL) {
             const paragraf = document.getElementById('congratulations');
             paragraf.classList.add('add-list-book');
         }
-        else {
+        else { 
             arrayBooksShop.delete(buttonShL.dataset.title);
 
             buttonShL.textContent = "Add to shopping list";
@@ -89,8 +88,8 @@ async function bookSaveInShop(buttonShL) {
             message: error.message,
         });
     } finally {
-        updateLocalStorage(); 
-        updateArrayMap();
+        updateLocalStorage(arrayBooksShop); 
+        updateArrayMap(arrayBooksShop);
     }
 }
 

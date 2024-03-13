@@ -1,5 +1,8 @@
 // scroll up //
 
 export async function scrollUp() {
-    window.scrollTo(0, 0);
+    window.scroll({
+        top: 60,
+        behavior: 'smooth'
+    });
 }

@@ -3,96 +3,90 @@ import axios from "axios";
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 import {getMapFromLocalStorage, updateLocalStorage, updateArrayMap} from "./local-storage.js";
+import {createSupportUkraine} from "./support-ukraine.js";
 import {scrollUp} from "./scroll-up.js";
+import sprite from "../img/blocks.svg";
 
-const listOne = document.querySelector(".list-books");
+const listBooks = document.querySelector(".list-books");
 const ulPagination = document.querySelector('.pagination');
 const loadingIndicator = document.querySelector(".container-loader");
 
 // local storage
 let arrayBooksShop = getMapFromLocalStorage();
-updateLocalStorage();
 //
 
 window.addEventListener("load", async (e) => {
     e.preventDefault();
 
+    createSupportUkraine();
     addColorLastWord("Shopping List");
-    createSubArray(0, 3);
+
+    await createSubArray(0, getPerPage());
     showPagination();
+});
+
+listBooks.addEventListener("click", async (e) => {
+    e.preventDefault();
+
+    if (e.target.matches('.icon-shop-list')) {
+        arrayBooksShop.delete(e.target.getAttribute('data-book'));
+
+        updateLocalStorage(arrayBooksShop); 
+        updateArrayMap(arrayBooksShop);
+
+        await createSubArray(0, getPerPage());
+        showPagination();
+    }
 });
 
 ulPagination.addEventListener("click", async (e) => {
     e.preventDefault();
 
     if (e.target.classList.contains('svg-li-pagination-l') || e.target.classList.contains('svg-li-pagination-r') || e.target.classList.contains('page-li-pagination')) {
-        const perPage = 3;
-        let startIndex;
-        let pageActive;
         
+        let perPage = getPerPage();
+        let startIndex, pageActive;
+        const pageOne = document.querySelector('.page-one');
+        const pageText = parseInt(pageOne.textContent);
+        const sizeMap = arrayBooksShop.size;
+        const page = Math.floor(sizeMap / perPage);
+        const totalElements = document.querySelectorAll('.page-li-pagination').length;
+
         try {
-            switch (e.target.getAttribute('data-id')) {
+            switch (e.target.id) {
                 case "start":
                     startIndex = 0;
                     pageActive = 1;
-
-
-                    if (document.querySelector('.page-one').id === '1') throw new Error("This is the first page");
-                    document.querySelector('.page-one').classList.remove('page-one');
-                    document.getElementById('1').classList.add('page-one');
-                    break;
-                case "next":
-                    startIndex = parseInt(document.querySelector('.page-one').textContent) * perPage;
-                    if (startIndex >= arrayBooksShop.size) throw new Error("This is the last page");
-
-
-                    let id = document.querySelector('.page-one').textContent;
-                    document.getElementById(id).classList.remove('page-one');
-                    id = (parseInt(id) + 1).toString();
-                    document.getElementById(id).classList.add('page-one');
-                    
-                    pageActive = parseInt(document.getElementById(id).id);
-                    break;
-                case "last":
-                    const sizeMap = arrayBooksShop.size;
-                    const page = Math.floor(sizeMap / perPage);
-                    if (sizeMap % perPage === 0) {
-                        startIndex = (page -1) * perPage;
-                        pageActive = page;
-                    } else {
-                        startIndex = sizeMap - (sizeMap - (page * perPage));
-                        pageActive = page + 1;
-                    }
-
-                    if (startIndex >= sizeMap)throw new Error("This is the last page");
-                    else if (document.querySelector('.page-one').id === Math.ceil(sizeMap / perPage).toString()) {
-                        throw new Error("Last page");
-                    }
-                    
-                    document.querySelector('.page-one').classList.remove('page-one');
-                    let countLi = (document.querySelectorAll('.page-li-pagination').length).toString();
-                    document.getElementById(countLi).classList.add('page-one');
                     break;
                 case "prev":
-                    startIndex = (parseInt(document.querySelector('.page-one').textContent) - 1) * (perPage) - 3;
-                    if (startIndex < 0) throw new Error("This is the first page");
-
-
-                    let idPrev = document.querySelector('.page-one').textContent;
-                    document.getElementById(idPrev).classList.remove('page-one');
-                    idPrev = (parseInt(idPrev) - 1).toString();
-                    document.getElementById(idPrev).classList.add('page-one');
-                    
-                    pageActive = parseInt(document.getElementById(idPrev).id);
+                    startIndex = (pageText - 1) * perPage - perPage;
+                    pageActive = pageText - 1;
+                    break;
+                case "last":
+                    if (sizeMap % perPage === 0) {
+                        startIndex = (page -1) * perPage;
+                    } else {
+                        startIndex = sizeMap - (sizeMap - (page * perPage));
+                    }
+                    pageActive = totalElements;
+                    break;
+                case "next":
+                    startIndex = pageText * perPage;
+                    pageActive = pageText + 1;
                     break;
                 default:
-                    startIndex = (parseInt(e.target.getAttribute('data-id')) -1) * perPage;
-                    document.querySelector('.page-one').classList.remove('page-one'); 
-                    e.target.classList.add('page-one');
-
-                    pageActive = parseInt(e.target.getAttribute('data-id'));
+                    startIndex = (parseInt(e.target.textContent) -1) * perPage;
+                    pageActive = parseInt(e.target.textContent);
             }
-            let endIndex = startIndex + 3;
+            if (pageActive <= 0) throw new Error("This is the first page.");
+            else if (pageText === pageActive)  throw new Error("Action repeated.");
+            else if (pageActive > totalElements)  throw new Error("This is the last page.");
+
+            pageOne.classList.toggle('page-one');
+            document.getElementById(pageActive.toString()).classList.add('page-one');
+            let endIndex = startIndex + perPage;
+            
+            scrollUp();
 
             createSubArray(startIndex, endIndex);
             hiddenLiPagination(pageActive-1);
@@ -101,67 +95,86 @@ ulPagination.addEventListener("click", async (e) => {
                 title: "Error",
                 message: error.message,
             });
-        } finally {
-            scrollUp();
         }
     }
 });
 
 async function createSubArray(startIndex, endIndex) {
+    
+    loadingIndicator.style.display = "block";
     const arraySubset = Array.from(arrayBooksShop.values()).slice(startIndex, endIndex);
     let booksCard = ``;
-
+    
     for (let value of arraySubset) {
         booksCard += await showBooksInShoppingList(value);
     }
     
-    listOne.innerHTML = booksCard;
+    listBooks.innerHTML = booksCard;
+    loadingIndicator.style.display = "none";
 }
 
 async function showPagination() {
     const sizeMap = arrayBooksShop.size;
-    const page = sizeMap / 3;
+    let perPage = getPerPage();
+    const page = sizeMap / perPage;
     
     let booksCard = `
-        <div class="svg-li-pagination-container">
-            <li class="svg-li-pagination-l" data-id="start"><<</li>
-            <li class="svg-li-pagination-l" data-id="prev"><</li>
-        </div> 
+        <ul class="svg-li-pagination-container">
+            <li class="svg-li-pagination-l" id="start">
+                <svg class="icon-pagination" fill="none">
+                    <use href="${sprite}#double-arrow"></use>
+                </svg>
+            </li>
+            <li class="svg-li-pagination-l" id="prev">
+                <svg class="icon-pagination" fill="none">
+                    <use href="${sprite}#arr"></use>
+                </svg>
+            </li>
+        </ul> 
         
-        <div class="li-pagination-container">
-            <li class="page-li-pagination-hidden-el-l"></li>`;
+        <ul class="li-pagination-container">`;
 
-            if (sizeMap > 3) {
-                booksCard += `<li id="1" class="page-li-pagination page-one" data-id="1">1</li>`;
-                if (sizeMap % 3 === 0) {
+            if (sizeMap > perPage) {
+                booksCard += `<li id="1" class="page-li-pagination page-one">1</li>`;
+                if (sizeMap % perPage === 0) {
                     for(let i = 2; i <= page; i++) {
-                        booksCard += `<li id="${i}" class="page-li-pagination" data-id="${i}">${i}</li>`;
+                        booksCard += `<li id="${i}" class="page-li-pagination">${i}</li>`;
                     };
                 } else {
                     for(let i = 2; i <= page+1; i++) {
-                        booksCard += `<li id="${i}" class="page-li-pagination" data-id="${i}">${i}</li>`;
+                        booksCard += `<li id="${i}" class="page-li-pagination">${i}</li>`;
                     };
                 }
                 
             } else {
-                booksCard += `<li id="1" class="page-li-pagination page-one" data-id="1">1</li>`;
+                booksCard += `<li id="1" class="page-li-pagination page-one">1</li>`;
             }
 
     booksCard += `
             <li class="page-li-pagination-hidden-el-r"></li>
-        </div>
+        </ul>
         
-        <div class="svg-li-pagination-container">
-            <li class="svg-li-pagination-r" data-id="next">></li>
-            <li class="svg-li-pagination-r" data-id="last">>></li>
-        </div>`;
+        <ul class="svg-li-pagination-container">
+            <li class="svg-li-pagination-r" id="next">
+                <svg class="icon-pagination" fill="none">
+                    <svg class="icon-pagination" fill="none">
+                        <use href="${sprite}#arr"></use>
+                    </svg>
+                </svg>
+            </li>
+            <li class="svg-li-pagination-r last" id="last">
+                <svg class="icon-pagination" fill="none">
+                    <use href="${sprite}#double-arrow"></use>
+                </svg>
+            </li>
+        </ul>`;
         ulPagination.innerHTML = booksCard;
         hiddenLiPagination(0);
         ulPagination.style.display = "flex";
 }
 
 async function hiddenLiPagination(startElement) {
-    const distance = 2;
+    const distance = getWidthWindow();
     document.querySelectorAll('.page-li-pagination').forEach((element, index) => {
 
         if (index < startElement - distance || index > startElement + distance) {
@@ -172,12 +185,6 @@ async function hiddenLiPagination(startElement) {
     });
 
     const totalElements = document.querySelectorAll('.page-li-pagination').length - 1;
-    if (startElement > distance) {
-        document.querySelector('.page-li-pagination-hidden-el-l').style.display = "flex";
-        document.querySelector('.page-li-pagination-hidden-el-l').innerHTML = "...";
-    } else {
-        document.querySelector('.page-li-pagination-hidden-el-l').style.display = "none";
-    }
     
     if (startElement < totalElements - distance) {
         document.querySelector('.page-li-pagination-hidden-el-r').style.display = "flex";
@@ -206,17 +213,24 @@ async function showBooksInShoppingList(book_id) {
                                 <p class="list-name">${data.list_name}</p>
                             </div>
 
-                            <div class="svg-delete-shop-list">
-                                X
-                            </div>
+                                <svg class="icon-shop-list" fill="none">
+                                    <use data-book="${data.title}" class="icon-shop-list" href="${sprite}#block"></use>
+                                </svg>
                         </div>
 
                         <p class="description-shop-list">${data.description}</p>
                     </div>
 
                     <div class="author-links-shop-list">
-                        <p>${data.author}</p>
-                        <a href="${data.buy_links[0].url}" target="_blank">amazon</a>
+                        <p class="author">${data.author}</p>
+                        <div class="link-container-shop-list">
+                            <a href="${data.buy_links[0].url}" target="_blank">
+                                <img class="amazon" src="../img/amazon.png" srcset="../img/amazon.png 1x, ../img/amazon2x.png 2x" alt="amazon"></img>
+                            </a>
+                            <a href="${data.buy_links[1].url}" target="_blank">
+                                <img class="book" src="../img/book.png" srcset="../img/book.png 1x, ../img/book2x.png 2x" alt="book"></img>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </li>`;
@@ -233,4 +247,18 @@ async function addColorLastWord (word) {
     const lastSpaceIndex = word.lastIndexOf(' ');
     const nameCategory = document.querySelector(".name-page");
     nameCategory.innerHTML = `${word.substring(0, lastSpaceIndex)} <span class="blue-color">${word.substring(lastSpaceIndex + 1)}</span>`;
+}
+
+function getWidthWindow() {
+    const width = window.innerWidth;
+    if (width <= 767) return 1;
+    else return 2;
+}
+
+function getPerPage() {
+    if (getWidthWindow() === 2) {
+        return 5;
+    } else {
+        return 3;
+    }
 }

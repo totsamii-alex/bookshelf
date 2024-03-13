@@ -1,3 +1,10 @@
-.margin-add {
-    margin-top: 40px;
-  }
+.header {
+  height: 60px;
+  border: 1px solid var(--colorBlack);
+  border-radius: 0 0 8px 8px;
+  background-color: white;
+}
+.main-header {
+  display: flex;
+  justify-content: space-between;
+}
