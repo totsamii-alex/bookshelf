@@ -6,6 +6,8 @@ import {getMapFromLocalStorage, updateLocalStorage, updateArrayMap} from "./loca
 import {createSupportUkraine} from "./support-ukraine.js";
 import {scrollUp} from "./scroll-up.js";
 import sprite from "../img/blocks.svg";
+import empty from "../img/isEmpty.png";
+import empty2x from "../img/isEmpty2x.png";
 
 const listBooks = document.querySelector(".list-books");
 const ulPagination = document.querySelector('.pagination');
@@ -17,16 +19,24 @@ let arrayBooksShop = getMapFromLocalStorage();
 
 window.addEventListener("load", async (e) => {
     e.preventDefault();
-
+    
     createSupportUkraine();
     addColorLastWord("Shopping List");
 
-    await createSubArray(0, getPerPage());
-    showPagination();
+    if (isEmpty()) {
+        await createSubArray(0, getPerPage());
+        showPagination();
+    } else {
+        listBooks.innerHTML = `
+        <div class="empty-shop-list">
+            <p class="commentary-shop-list">This page is empty, add some books and proceed to order.</p>
+            <img src="${empty}" srcset="${empty2x}" alt="Empty booklist">
+        </div>`;
+        ulPagination.innerHTML = "";
+    }
 });
 
 listBooks.addEventListener("click", async (e) => {
-    e.preventDefault();
 
     if (e.target.matches('.icon-shop-list')) {
         arrayBooksShop.delete(e.target.getAttribute('data-book'));
@@ -34,16 +44,25 @@ listBooks.addEventListener("click", async (e) => {
         updateLocalStorage(arrayBooksShop); 
         updateArrayMap(arrayBooksShop);
 
-        await createSubArray(0, getPerPage());
-        showPagination();
+        if (isEmpty()) {
+            await createSubArray(0, getPerPage());
+            showPagination();
+        } else {
+            listBooks.innerHTML = `
+            <div class="empty-shop-list">
+                <p class="commentary-shop-list">This page is empty, add some books and proceed to order.</p>
+                <img src="${empty}" srcset="${empty2x}" alt="Empty booklist">
+            </div>`;
+            ulPagination.innerHTML = "";
+        }
     }
 });
 
 ulPagination.addEventListener("click", async (e) => {
     e.preventDefault();
 
-    if (e.target.classList.contains('svg-li-pagination-l') || e.target.classList.contains('svg-li-pagination-r') || e.target.classList.contains('page-li-pagination')) {
-        
+    const targetElement = e.target.closest('.ul-li-container');
+    if (targetElement) {
         let perPage = getPerPage();
         let startIndex, pageActive;
         const pageOne = document.querySelector('.page-one');
@@ -53,7 +72,7 @@ ulPagination.addEventListener("click", async (e) => {
         const totalElements = document.querySelectorAll('.page-li-pagination').length;
 
         try {
-            switch (e.target.id) {
+            switch (targetElement.id) {
                 case "start":
                     startIndex = 0;
                     pageActive = 1;
@@ -120,19 +139,19 @@ async function showPagination() {
     
     let booksCard = `
         <ul class="svg-li-pagination-container">
-            <li class="svg-li-pagination-l" id="start">
+            <li class="svg-li-pagination-l ul-li-container" id="start">
                 <svg class="icon-pagination" fill="none">
                     <use href="${sprite}#double-arrow"></use>
                 </svg>
             </li>
-            <li class="svg-li-pagination-l" id="prev">
+            <li class="svg-li-pagination-l ul-li-container" id="prev">
                 <svg class="icon-pagination" fill="none">
                     <use href="${sprite}#arr"></use>
                 </svg>
             </li>
         </ul> 
         
-        <ul class="li-pagination-container">`;
+        <ul class="li-pagination-container ul-li-container">`;
 
             if (sizeMap > perPage) {
                 booksCard += `<li id="1" class="page-li-pagination page-one">1</li>`;
@@ -155,14 +174,14 @@ async function showPagination() {
         </ul>
         
         <ul class="svg-li-pagination-container">
-            <li class="svg-li-pagination-r" id="next">
+            <li class="svg-li-pagination-r ul-li-container" id="next">
                 <svg class="icon-pagination" fill="none">
                     <svg class="icon-pagination" fill="none">
                         <use href="${sprite}#arr"></use>
                     </svg>
                 </svg>
             </li>
-            <li class="svg-li-pagination-r last" id="last">
+            <li class="svg-li-pagination-r last ul-li-container" id="last">
                 <svg class="icon-pagination" fill="none">
                     <use href="${sprite}#double-arrow"></use>
                 </svg>
@@ -225,10 +244,10 @@ async function showBooksInShoppingList(book_id) {
                         <p class="author">${data.author}</p>
                         <div class="link-container-shop-list">
                             <a href="${data.buy_links[0].url}" target="_blank">
-                                <img class="amazon" src="../img/amazon.png" srcset="../img/amazon.png 1x, ../img/amazon2x.png 2x" alt="amazon"></img>
+                                <img src="../img/amazon.png" srcset="../img/amazon.png 1x, ../img/amazon2x.png 2x" alt="amazon"></img>
                             </a>
                             <a href="${data.buy_links[1].url}" target="_blank">
-                                <img class="book" src="../img/book.png" srcset="../img/book.png 1x, ../img/book2x.png 2x" alt="book"></img>
+                                <img src="../img/book.png" srcset="../img/book.png 1x, ../img/book2x.png 2x" alt="book"></img>
                             </a>
                         </div>
                     </div>
@@ -261,4 +280,8 @@ function getPerPage() {
     } else {
         return 3;
     }
+}
+
+function isEmpty() {
+    return arrayBooksShop.size !== 0;
 }

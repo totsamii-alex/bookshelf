@@ -1,4 +1,3 @@
-@import url(./reset.css);
 @import url(./books-list.css);
 @import url(./footer.css);
 @import url(./header.css);
@@ -8,6 +7,8 @@
 @import url(./sign-up.css);
 @import url(./support-ukraine.css);
 @import url(./shopping-list.css);
+@import url(./list-categories.css);
+@import url(./loader.css);
 
 * {
     box-sizing: border-box;
@@ -19,31 +20,19 @@
     --colorYellow: #EAC645;
     --colorBlack: #202024;
     --colorGray: #b30d0d;
-
-    --textDescription-M: {
-        font-family: var(--myFont);
-        color: var(--colorBlack);
-        font-size: 12px;
-    };
-    --textDescription-TD: {
-        font-family: var(--myFont);
-        color: var(--colorBlack);
-        font-size: 14px;
-    };
-    --textAuthor: {
-        font-family: var(--myFont);
-        color: var(--colorGray);
-        font-size: 12px;
-    };
-    --textCategories: {
-        font-family: var(--myFont);
-        color: var(--colorBlack);
-        font-size: 14px;
-    };
+    --colorWhite: #ffffff;
+    --colorBody: #f6f6f6;
 }
 
 body {
-    background-color: #f6f6f6;
+    background-color: var(--colorBody);
+}
+/* styles scrollbar body */
+body::-webkit-scrollbar-thumb {
+    background-color: #5c5c5c;
+}
+body::-webkit-scrollbar-track {
+    background-color: rgb(231, 231, 231);
 }
 
 button {

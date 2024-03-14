@@ -4,22 +4,22 @@ import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
-import './js/support-ukraine.js';
+import {createSupportUkraine} from "./js/support-ukraine.js";
+import {scrollUp, scrollUpZero} from "./js/scroll-up.js";
 import './js/modal-window.js';
 
 const listOne = document.querySelector(".list-one");
 const listCategories = document.querySelector(".list_categories");
 const loadingIndicator = document.querySelector(".container-loader");
 
-let buttonClicked = true;
-
 window.addEventListener("load", async (e) => {
     e.preventDefault();
 
     mainCategories();
+    createSupportUkraine();
     addColorLastWord("Best Sellers Books");
     await mainGalery();
-    scrollUp();
+    scrollUpZero();
 });
 
 listCategories.addEventListener("click", async (e) => {
@@ -76,9 +76,7 @@ async function mainCategories() {
 
 async function mainGalery() {
     try {
-        buttonClicked = false;
-        listOne.innerHTML = "";
-        loadingIndicator.style.display = 'block';
+        loadingIndicator.style.display = 'flex';
         const response = await axios.get(`https://books-backend.p.goit.global/books/top-books`);
         const data = response.data;
         let booksCard = ``;
@@ -115,14 +113,14 @@ async function mainGalery() {
         });
     } finally {
         simpleLightbox();
+        scrollUp();
         loadingIndicator.style.display = 'none';
-        buttonClicked = true;
     }
 }
 
 async function sortGalery(searchProperty) {
     try {
-        scrollUp();
+        loadingIndicator.style.display = 'block';
         const response = await axios.get(`https://books-backend.p.goit.global/books/category?category=${searchProperty}`);
             const data = response.data;
             let booksCard = ``;
@@ -153,6 +151,7 @@ async function sortGalery(searchProperty) {
         });
     } finally {
         simpleLightbox();
+        scrollUp();
         loadingIndicator.style.display = 'none';
     }
 }
@@ -169,10 +168,6 @@ function getWidthWindow() {
     else if (width >= 768) return 2;
     else return 0;
 }
-
-
-
-
 
 // simplelightbox //
 async function simpleLightbox() {
@@ -202,8 +197,4 @@ async function setColorGaleryList(e) {
     else {
         e.target.classList.add('selected');
     }
-}
-
-async function scrollUp() {
-    window.scroll(0, 0);
 }

@@ -6,3 +6,9 @@ export async function scrollUp() {
         behavior: 'smooth'
     });
 }
+export async function scrollUpZero() {
+    window.scroll({
+        top: 0,
+        behavior: 'smooth'
+    });
+}

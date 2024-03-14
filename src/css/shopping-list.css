@@ -2,6 +2,7 @@
 .main-shop-list {
     display: flex;
     gap: 40px;
+    padding: 40px 0;
 }
 .name-page {
     font-family: var(--myFont);
@@ -11,8 +12,14 @@
     color: var(--colorBlue);
 }
 .shopping-list {
-    padding: 40px 0;
     flex: 1;
+}
+.list-all-image-support {
+    gap: 40px;
+}
+/* support ukraine */
+.is-shop-list {
+    display: none;
 }
 
 /* list books styles */
@@ -20,12 +27,10 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-
     padding: 40px 0 20px 0;
 }
 .list-books li {
-    background-color: white;
-    box-shadow: 2px 2px 2px #3a3a3a82;
+    background-color: var(--colorWhite);
 }
 .list-books-shop-list {
     display: flex;
@@ -46,6 +51,16 @@
 .image-shop-list {
     width: 100px;
     height: 142px;
+}
+.empty-shop-list {
+    width: 335px;
+    margin: auto;
+    padding-top: 80px;
+}
+.empty-shop-list p {
+    font-family: var(--myFont);
+    color: var(--colorBlack);
+    text-align: center;
 }
 
 /* styles text book */
@@ -123,7 +138,7 @@
     border: 2px solid var(--colorBlack);
 }
 .li-pagination-container li{
-    background-color: white;
+    background-color: var(--colorWhite);
 }
 .svg-li-pagination-container li {
     background-color: var(--colorYellow);
@@ -139,8 +154,8 @@
 }
 .pagination li:hover {
     background-color: var(--colorBlue);
-    color: white;
-    stroke: white;
+    color: var(--colorWhite);
+    stroke: var(--colorWhite);
 }
 
 /* style images-link */
@@ -168,7 +183,7 @@
 }
 .icon-shop-list use:hover {
     cursor: pointer;
-    fill: white;
+    fill: var(--colorWhite);
 }
 .icon-pagination {
     width: 22px;
@@ -185,7 +200,7 @@
 /* move style */
 .page-one {
     background-color: var(--colorBlack) !important;
-    color: white;
+    color: var(--colorWhite);
 }
 
 /* tablet and desctop styles media */
@@ -222,15 +237,20 @@
         width: 24px;
         height: 24px;
     }
+    /* empty */
+    .empty-shop-list {
+        padding-top: 100px;
+    }
 }
 @media (min-width: 1440px) {
     .name-page {
         font-size: 48px;
     }
 
+    /* icons */
     .link-container-shop-list {
         gap: 15px;
-        width: 100px;
+        width: 110px;
     }
     .author, .list-name {
         font-size: 14px;
@@ -240,7 +260,7 @@
         height: 36px;
         align-self: flex-start;
     }
-
+    /* main image */
     .image-shop-list {
         width: 116px;
         height: 165px;
@@ -256,5 +276,15 @@
     .icon-pagination {
         width: 24px;
         height: 24px;
+    }
+    /* support ukraine */
+    .support-ukraine {
+        width: 356px;
+        height: 474px;
+    }
+    
+    /* support ukraine */
+    .is-shop-list {
+        display: block;
     }
 }
