@@ -5,17 +5,21 @@ import "izitoast/dist/css/iziToast.min.css";
 import {getMapFromLocalStorage, updateLocalStorage, updateArrayMap} from "./local-storage.js";
 import {createSupportUkraine} from "./support-ukraine.js";
 import {scrollUp} from "./scroll-up.js";
+import "./reload.js";
 import sprite from "../img/blocks.svg";
 import empty from "../img/isEmpty.png";
 import empty2x from "../img/isEmpty2x.png";
+import '../js/header.js';
 
 const listBooks = document.querySelector(".list-books");
 const ulPagination = document.querySelector('.pagination');
 const loadingIndicator = document.querySelector(".container-loader");
+const spanCounter = document.querySelectorAll('.span-counter');
 
 // local storage
 let arrayBooksShop = getMapFromLocalStorage();
 //
+setSpanCounter();
 
 window.addEventListener("load", async (e) => {
     e.preventDefault();
@@ -170,7 +174,7 @@ async function showPagination() {
             }
 
     booksCard += `
-            <li class="page-li-pagination-hidden-el-r"></li>
+            <li id="next" class="page-li-pagination-hidden-el-r ul-li-container"></li>
         </ul>
         
         <ul class="svg-li-pagination-container">
@@ -284,4 +288,11 @@ function getPerPage() {
 
 function isEmpty() {
     return arrayBooksShop.size !== 0;
+}
+
+async function setSpanCounter() {
+    spanCounter.forEach( async (element) => {
+        element.textContent = arrayBooksShop.size;
+        if (!arrayBooksShop.size) element.style.display = "none";
+    });
 }

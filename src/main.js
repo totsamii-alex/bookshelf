@@ -7,6 +7,8 @@ import "izitoast/dist/css/iziToast.min.css";
 import {createSupportUkraine} from "./js/support-ukraine.js";
 import {scrollUp, scrollUpZero} from "./js/scroll-up.js";
 import './js/modal-window.js';
+import './js/header.js';
+import sprite from "./img/blocks.svg";
 
 const listOne = document.querySelector(".list-one");
 const listCategories = document.querySelector(".list_categories");
@@ -95,6 +97,12 @@ async function mainGalery() {
                         <div class="card-book-container">
                             <p>${data[i].books[j].title}</p>
                             <p>${data[i].books[j].author}</p>
+                            <div class="rank-book-container">
+                                <svg fill="none">
+                                    <use id="star" href="${sprite}#star"></use>
+                                </svg>
+                                <span>${data[i].books[j].rank_last_week}</span>
+                            </div>
                         </div>
                     </li>
                 `;
@@ -136,6 +144,12 @@ async function sortGalery(searchProperty) {
                                         <div class="card-book-container">
                                             <p>${data[i].title}</p>
                                             <p>${data[i].author}</p>
+                                            <div class="rank-book-container">
+                                                <svg fill="none">
+                                                    <use id="star" href="${sprite}#star"></use>
+                                                </svg>
+                                                <span>${data[i].rank_last_week}</span>
+                                            </div>
                                         </div>
                                     </li>
                                 `;

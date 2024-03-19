@@ -1,23 +1,39 @@
-// const buttonShoppingList = document.querySelector(".shopping-list");
+"use strict";
+const themeSwitch = document.querySelector('.check');
+const menu = document.querySelector('.svg-menu-mobail');
+let darkLight = JSON.parse(localStorage.getItem('darkLight'));
 
-// buttonShoppingList.addEventListener("click", async (e) => { 
-//     if (buttonClicked) {
-//         ulPagination.style.display = "none";
+window.addEventListener("load", function(e) {
+    e.preventDefault();
+    if (darkLight) {
+        document.documentElement.classList.toggle('dark');
+        themeSwitch.checked = true;
+    }
+});
 
-//         // console.log(arrayBooksShop.entries());
+themeSwitch.addEventListener('change', function() {
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('darkLight', !darkLight);
+    darkLight = !darkLight;
+});
 
-//         if (arrayBooksShop.size === 0) {
+menu.addEventListener('click', function() {
+    const closeElement = document.getElementById('close');
+    const displayStyle = window.getComputedStyle(closeElement).getPropertyValue('display');
 
-//             listOne.innerHTML = `
-//             <div class="empty-shop-list">
-//                 <p>This page is empty, add some books and proceed to order.</p>
-//                 <div class=""><img src="./img/IMG_isEmpty.png" alt="isEmpty"></div>
-//             </div>`;
-
-//         } else {
-            
-//             await createSubArray(0, 3);
-//             showPagination();
-//         }
-//     }
-// });
+    if (displayStyle === 'none') {
+        document.getElementById('burger').style.display = "none";
+        document.getElementById('close').style.display = "block";
+        document.querySelector('.menu').classList.add('active-menu');
+        document.querySelector('body').classList.add('modal-open');
+        window.scroll({
+            top: 0,
+            behavior: 'smooth'
+        });
+    } else {
+        document.getElementById('burger').style.display = "block";
+        document.getElementById('close').style.display = "none";
+        document.querySelector('.menu').classList.remove('active-menu');
+        document.querySelector('body').classList.remove('modal-open');
+    }
+});

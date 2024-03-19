@@ -1,0 +1,103 @@
+@import url(./footer.css);
+@import url(./header.css);
+@import url(./main-content.css);
+@import url(./scroll-up.css);
+@import url(./sign-up.css);
+@import url(./support-ukraine.css);
+@import url(./shopping-list.css);
+@import url(./loader.css);
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --myFont: 'DM Sans';
+    --colorBlue: #4F2EE8;
+    --colorYellow: #EAC645;
+    --colorBlack: #202024;
+    --colorDark: rgb(0, 0, 0);
+    --colorGray: #525252;
+    --colorWhite: #ffffff;
+    --colorBody: #f6f6f6;
+    --colorHead: #4F2EE8;
+    --colorModal: #ffffff;
+    --colorModalText: #202024;
+    --colorBlackToWhite: rgb(0, 0, 0);
+}
+
+.dark {
+    --colorBlack: #ffffff;
+    --colorGray: #b4afaf;
+    --colorBody: #202024;
+    --colorWhite: rgb(0, 0, 0);
+    --colorBlue: #EAC645;
+    --colorModal: #202024;
+    --colorModalText: #ffffff;
+    --colorBlackToWhite: #ffffff;
+}
+
+body {
+    background-color: var(--colorBody);
+}
+/* styles scrollbar body */
+body::-webkit-scrollbar-thumb {
+    background-color: var(--colorGray);
+}
+body::-webkit-scrollbar-track {
+    background-color: var(--colorBody);
+}
+body::-webkit-scrollbar {
+    width: 16px;
+}
+button {
+    cursor: pointer;
+}
+
+ul {
+    list-style-type: none;
+}
+
+body,
+ul,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    padding: 0;
+    margin: 0;
+}
+
+img {
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+    height: auto;
+}
+
+a {
+    color: currentColor;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 375px;
+    padding: 0 20px;
+    margin: auto;
+}
+
+@media (min-width: 768px) and (max-width: 1440px) {
+    .container {
+        max-width: 768px;
+        padding: 0 32px;
+    }
+}
+@media (min-width: 1440px) {
+    .container {
+        max-width: 1440px;
+        padding: 0 24px;
+    }
+}

@@ -1,4 +1,3 @@
-@import url(./books-list.css);
 @import url(./footer.css);
 @import url(./header.css);
 @import url(./main-content.css);
@@ -6,7 +5,6 @@
 @import url(./scroll-up.css);
 @import url(./sign-up.css);
 @import url(./support-ukraine.css);
-@import url(./shopping-list.css);
 @import url(./list-categories.css);
 @import url(./loader.css);
 
@@ -19,9 +17,25 @@
     --colorBlue: #4F2EE8;
     --colorYellow: #EAC645;
     --colorBlack: #202024;
-    --colorGray: #b30d0d;
+    --colorDark: rgb(0, 0, 0);
+    --colorGray: #525252;
     --colorWhite: #ffffff;
     --colorBody: #f6f6f6;
+    --colorHead: #4F2EE8;
+    --colorModal: #ffffff;
+    --colorModalText: #202024;
+    --colorThumb: #E0E0E0;
+}
+
+.dark {
+    --colorBlack: #ffffff;
+    --colorGray: #b4afaf;
+    --colorBody: #202024;
+    --colorWhite: rgb(0, 0, 0);
+    --colorBlue: #EAC645;
+    --colorModal: #202024;
+    --colorModalText: #ffffff;
+    --colorThumb: black;
 }
 
 body {
@@ -29,12 +43,14 @@ body {
 }
 /* styles scrollbar body */
 body::-webkit-scrollbar-thumb {
-    background-color: #5c5c5c;
+    background-color: var(--colorGray);
 }
 body::-webkit-scrollbar-track {
-    background-color: rgb(231, 231, 231);
+    background-color: var(--colorBody);
 }
-
+body::-webkit-scrollbar {
+    width: 16px;
+}
 button {
     cursor: pointer;
 }
@@ -60,7 +76,6 @@ img {
     object-fit: cover;
     border-radius: 8px;
     display: block;
-    max-width: 100%;
     height: auto;
 }
 

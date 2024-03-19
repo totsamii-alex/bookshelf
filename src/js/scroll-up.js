@@ -1,5 +1,6 @@
-// scroll up //
+const element = document.getElementById('scroll-div');
 
+// scroll up //
 export async function scrollUp() {
     window.scroll({
         top: 60,
@@ -12,3 +13,17 @@ export async function scrollUpZero() {
         behavior: 'smooth'
     });
 }
+
+// click //
+window.addEventListener('scroll', function() {
+    var scrollPosition = window.scrollY;
+
+    if (scrollPosition >= 1000) {
+        element.style.display = 'flex';
+    } else {
+        element.style.display = 'none';
+    }
+});
+element.addEventListener("click", (e) => {
+    scrollUpZero();
+});

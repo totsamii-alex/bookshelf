@@ -5,12 +5,14 @@ import "izitoast/dist/css/iziToast.min.css";
 import {getMapFromLocalStorage, updateLocalStorage, updateArrayMap} from "./local-storage.js";
 import sprite from "../img/blocks.svg";
 
+const spanCounter = document.querySelectorAll('.span-counter');
 const modalWindow = document.querySelector(".modal-window-shop");
 const listOne = document.querySelector(".list-one");
 
 // local storage //
 let arrayBooksShop = getMapFromLocalStorage();
 // local storage //
+setSpanCounter();
 
 listOne.addEventListener("click", async (e) => {
     e.preventDefault();
@@ -23,7 +25,7 @@ listOne.addEventListener("click", async (e) => {
         console.log(typeof book);
         let shopBook = `
             <svg class="close-window" fill="none">
-                <use href="${sprite}#close"></use>
+                <use id="close-window" href="${sprite}#close"></use>
             </svg>
         <div class="">
             <div class="main-modal-window-content">
@@ -115,6 +117,13 @@ async function bookSaveInShop(buttonShL) {
     } finally {
         updateLocalStorage(arrayBooksShop); 
         updateArrayMap(arrayBooksShop);
+        setSpanCounter();
     }
 }
 
+async function setSpanCounter() {
+    spanCounter.forEach( async (element) => {
+        element.textContent = arrayBooksShop.size;
+        if (!arrayBooksShop.size) element.style.display = "none";
+    });
+}

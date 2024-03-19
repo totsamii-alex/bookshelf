@@ -6,17 +6,41 @@
 }
 .name-page {
     font-family: var(--myFont);
+    color: var(--colorBlack);
     font-size: 32px;
 }
 .blue-color {
-    color: var(--colorBlue);
+    color: var(--colorHead);
 }
 .shopping-list {
     flex: 1;
+    max-width: 100%;
 }
 .list-all-image-support {
     gap: 40px;
 }
+.link-shop-list-menu-desktop.active-shop-list {
+  padding: 5px 15px;
+  background-color: var(--colorYellow);
+  border-radius: 15px;
+  font-weight: 700;
+}
+.dark .link-shop-list-menu-desktop.active-shop-list,
+.dark .link-shop-list-menu-desktop.active-shop-list #svg-handbagr use {
+    color: black;
+    fill: black;
+}
+
+.menu .link-shop-list-menu-desktop.active-shop-list,
+.menu .link-shop-list-menu-desktop.active-shop-list #svg-handbagr use {
+    color: black;
+    fill: black;
+}
+
+.modal-open {
+    overflow-y: hidden;
+}
+
 /* support ukraine */
 .is-shop-list {
     display: none;
@@ -73,7 +97,9 @@
 .list-name {
     font-size: 12px;
     color: var(--colorGray);
-    font-family: var(--myFont);
+    font-family: var(--myFont);    
+    line-height: 117%;
+    letter-spacing: 0.03em;
 }
 .author-links-shop-list {
     display: flex;
@@ -106,6 +132,8 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     white-space: wrap;
+    line-height: 129%;
+    letter-spacing: -0.04em;
 
     margin-top: 10px;
 }
@@ -135,13 +163,23 @@
     text-align: center;
     justify-content: center;
     align-items: center;
-    border: 2px solid var(--colorBlack);
 }
-.li-pagination-container li{
-    background-color: var(--colorWhite);
+/* dark */
+.pagination li.page-li-pagination, 
+.page-li-pagination-hidden-el-r,
+.page-li-pagination-hidden-el-l  {
+    border: 2px solid var(--colorBlackToWhite);
+    background-color: var(--colorModal);
+    color: var(--colorModalText);
 }
+
+/* pag background */
 .svg-li-pagination-container li {
     background-color: var(--colorYellow);
+}
+
+.dark .svg-li-pagination-container li{
+    border: 2px solid var(--colorDark);
 }
 .pagination li {
     font-family: var(--myFont);
@@ -165,25 +203,40 @@
     gap: 10px;
     width: 60px;
 }
-
+.dark .link-container-shop-list img {
+    filter: invert(1);
+}
 /* change image hover */
 .link-container-shop-list img {
     border-radius: 0;
     filter: grayscale(100%);
+    max-width: 100%;
 }
 .link-container-shop-list img:hover {
     filter: drop-shadow(0px 3px 1px rgba(0,0,0,.35));
 }
+.dark .link-container-shop-list img:hover{
+    filter: invert(1) drop-shadow(0px 3px 1px rgba(255, 255, 255, 0.35));
+  }
 
 /* icon blocks */
 .icon-shop-list {
     width: 28px;
     height: 28px;
-    border-radius: 50%;
 }
-.icon-shop-list use:hover {
+.icon-shop-list use{
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    fill:#4F2EE8;
+    transition: fill .3s linear;
+}
+.dark .icon-shop-list use{
+    fill: black;
+}
+.icon-shop-list:hover use {
     cursor: pointer;
-    fill: var(--colorWhite);
+    fill: red;
 }
 .icon-pagination {
     width: 22px;
@@ -199,8 +252,8 @@
 
 /* move style */
 .page-one {
-    background-color: var(--colorBlack) !important;
-    color: var(--colorWhite);
+    background-color: var(--colorBlackToWhite) !important;
+    color: var(--colorWhite) !important;
 }
 
 /* tablet and desctop styles media */
@@ -220,7 +273,6 @@
     .image-shop-list {
         width: 116px;
         height: 165px;
-        border: 2px solid var(--colorBlack);
     }
     .icon-shop-list {
         width: 32px;
@@ -264,7 +316,6 @@
     .image-shop-list {
         width: 116px;
         height: 165px;
-        border: 2px solid var(--colorBlack);
     }
 
     /* pagination */
