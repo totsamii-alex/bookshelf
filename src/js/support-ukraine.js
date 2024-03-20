@@ -5,8 +5,7 @@ const buttonImageList = document.querySelector('.button-supp-uk');
 const arraySupport = [
     {
       title: 'Save the Children',
-      url:
-        'https://www.savethechildren.net/what-we-do/emergencies/ukraine-crisis',
+      url: 'https://www.savethechildren.net/what-we-do/emergencies/ukraine-crisis',
       src: './img/image-1.png',
       srcset: './img/image-1.png 1x, ./img/image-1-2x.png 2x',
     },
@@ -77,7 +76,7 @@ export async function createSupportUkraine() {
             <p>0${parseInt(i)+1}</p>
             <div>
               <a href="${arraySupport[i].url}" target="_blank">
-                <img class="img-support-ukraine" src="${arraySupport[i].src}" srcset="${arraySupport[i].srcset}" alt="${arraySupport[i].title}">
+                <img class="img-support-ukraine" src="./img/main-image.png" srcset="./img/main-image.png 1x, ./img/main-image-2x.png 2x" alt="${arraySupport[i].title}">
               </a>
             </div>
           </li>`;
