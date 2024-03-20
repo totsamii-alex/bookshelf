@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Put your description here.">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap">
+    <title>Gallery Books</title>
+  <script type="module" crossorigin src="/bookshelf/commonHelpers.js"></script>
+  <link rel="modulepreload" crossorigin href="/bookshelf/assets/header-BIQSOxM5.js">
+  <link rel="modulepreload" crossorigin href="/bookshelf/assets/vendor-X-nWYsMu.js">
+  <link rel="stylesheet" crossorigin href="/bookshelf/assets/vendor-BdQOvtY1.css">
+  <link rel="stylesheet" crossorigin href="/bookshelf/assets/index-B0gwkDgg.css">
+</head>
+<body>
+  <section class="header">
+    <div class="container">
+        <div class="main-header">
+            <div class="left-part-header">
+                <div class="logo-container">
+                    <a href="../index.html">
+                        <svg id="logo-svg">
+                            <use href="../img/blocks.svg#logo"></use>
+                        </svg>Bookshelf
+                    </a>
+                </div>
+
+                <div class="menu-container-desktop">
+                    <a class="active-home" href="../index.html">Home</a>
+                    
+                    <a class="link-shop-list-menu-desktop active-shop-list" href="../shopping-list.html">Shopping list
+                        <svg id="svg-handbagr">
+                            <use href="../img/blocks.svg#handbagr"></use>
+                        </svg>
+                        <span class="span-counter"></span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="menu-container">
+                <label class="switch">
+                    <input class="check" type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+
+                <div>
+                    <button type="button">
+                        <img style="display: none;" src="" alt="">
+                        <p>Sign up</p>
+                        <svg id="svg-sign-up">
+                            <use href="../img/blocks.svg#arr-sign-up"></use>
+                        </svg>
+                    </button>
+
+                    <svg class="svg-menu-mobail" id="svg-burger">
+                        <use id="burger" href="../img/blocks.svg#burger"></use>
+                        <use id="close" href="../img/blocks.svg#close"></use>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="menu">
+    <div class="container menu-heig">
+        <div class="menu-container-mobail menu-heig">
+            <div class="menu-container-desktop mobail-version">
+                <a class="active-home" href="../index.html">Home</a>
+                
+                <a class="link-shop-list-menu-desktop active-shop-list" href="../shopping-list.html">Shopping list
+                    <svg id="svg-handbagr">
+                        <use href="../img/blocks.svg#handbagr"></use>
+                    </svg>
+                    <span class="span-counter"></span>
+                </a>
+            </div>
+    
+            <button type="button">
+                <p>Sign up</p>
+                <svg id="svg-sign-up">
+                    <use href="../img/blocks.svg#arr-sign-up"></use>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+  <section>
+    <div class="container">
+      <div class="home">
+        <div class="list-home-category">
+          <ul class="list_categories"></ul>
+          <div class="support-ukraine">
+    <div class="list-all-image-support">
+        <div class="main-image-supp-ua">
+            <img class="img-support-ukraine" src="../img/main-image.png" srcset="../img/main-image.png 1x, ../img/main-image-2x.png 2x" alt="support ukraine">
+        </div>
+
+        <div class="scroll-container-support-ukraine">
+            <ul class="container-image-support-ukraine"></ul>
+        </div>
+
+        <button class="button-supp-uk" type="button">
+            <svg class="icon-supp-uk" fill="none">
+                <use class="icon-supp-uk" href="../img/blocks.svg#arrow"></use>
+            </svg>
+        </button>
+    </div>
+</div>
+        </div>
+
+        <div class="list-home-books">
+          <h1 class="name-category"></h1>
+
+<div class="container-loader">
+  <span class="loader"></span>
+</div>
+
+<ul class="list-one"></ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  
+  <section class="sign-up">
+    <div class="container-sign">
+        <form action="">
+            <svg class="close-window" fill="none">
+                <use id="close-window" href="${sprite}#close"></use>
+            </svg>
+            <input type="text" name="" id="">
+            <input type="email" name="" id="">
+            <input type="password" name="" id="">
+            <button type="submit"></button>
+            <div class="sign-in-up">
+                <button type="button"></button>
+                <button type="button"></button>
+            </div>
+        </form>
+    </div>
+</section>
+  <section>
+  <div class="modal-window-shop">
+    <div class="modal-content">
+
+    </div>
+  </div>
+</section>
+  <div id="scroll-div" class="scroll-up">
+    <div class="scroll-up-small">
+      <svg width="24" height="24">
+        <use href="../img/blocks.svg#scroll"></use>
+      </svg>
+    </div>
+</div>
+  <section>
+    
+</section>
+
+</body>
+</html>
+
+<!-- rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+} -->
