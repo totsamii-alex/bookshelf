@@ -1,4 +1,4 @@
-import{g as w,s as p,u as $,a as _,c as x,b as L,d as y}from"./assets/header-BIQSOxM5.js";import{a as d,i as l,S}from"./assets/vendor-X-nWYsMu.js";const C=document.querySelectorAll(".span-counter"),g=document.querySelector(".modal-window-shop"),E=document.querySelector(".list-one");let n=w();u();E.addEventListener("click",async t=>{if(t.preventDefault(),t.target.classList.contains("textUpHover")){document.body.classList.add("modal-open");const e=t.target.parentNode.dataset.category,a=(await d.get(`https://books-backend.p.goit.global/books/${e}`)).data;console.log(typeof a);let o=`
+import{g as w,s as p,u as $,a as _,c as x,b as L,d as y}from"./assets/header-C3E0nsaJ.js";import{a as d,i as l,S}from"./assets/vendor-X-nWYsMu.js";const C=document.querySelectorAll(".span-counter"),g=document.querySelector(".modal-window-shop"),E=document.querySelector(".list-one");let n=w();u();E.addEventListener("click",async t=>{if(t.preventDefault(),t.target.classList.contains("textUpHover")){document.body.classList.add("modal-open");const e=t.target.parentNode.dataset.category,a=(await d.get(`https://books-backend.p.goit.global/books/${e}`)).data;console.log(typeof a);let o=`
             <svg class="close-window" fill="none">
                 <use id="close-window" href="${p}#close"></use>
             </svg>
@@ -13,10 +13,10 @@ import{g as w,s as p,u as $,a as _,c as x,b as L,d as y}from"./assets/header-BIQ
                         <p class="modal-book-description">${a.description}</p>`),o+=`
                     <div class="link-container-modal-window">
                         <a href="${a.buy_links[0].url}" target="_blank">
-                            <img src="../img/amazon.png" srcset="../img/amazon.png 1x, ../img/amazon2x.png 2x" alt="amazon"></img>
+                            <img src="./img/amazon.png" srcset="./img/amazon.png 1x, ./img/amazon2x.png 2x" alt="amazon"></img>
                         </a>
                         <a href="${a.buy_links[1].url}" target="_blank">
-                            <img src="../img/book.png" srcset="../img/book.png 1x, ../img/book2x.png 2x" alt="book"></img>
+                            <img src="./img/book.png" srcset="./img/book.png 1x, ./img/book2x.png 2x" alt="book"></img>
                         </a>
                     </div>
 

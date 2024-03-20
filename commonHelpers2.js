@@ -1,4 +1,4 @@
-import{g as L,c as E,u as T,a as z,d as q,s as l}from"./assets/header-BIQSOxM5.js";import{i as v,a as M}from"./assets/vendor-X-nWYsMu.js";window.addEventListener("resize",e=>{e.preventDefault();const a=window.innerWidth;(a===1440||a===768)&&location.reload()});const b="/bookshelf/assets/isEmpty-zqgIGaxr.png",k="/bookshelf/assets/isEmpty2x-DbW8UP_T.png",p=document.querySelector(".list-books"),r=document.querySelector(".pagination"),f=document.querySelector(".container-loader"),C=document.querySelectorAll(".span-counter");let n=L();H();window.addEventListener("load",async e=>{e.preventDefault(),E(),A("Shopping List"),S()?(await u(0,g()),w()):(p.innerHTML=`
+import{g as L,c as E,u as T,a as z,d as q,s as l}from"./assets/header-C3E0nsaJ.js";import{i as v,a as M}from"./assets/vendor-X-nWYsMu.js";window.addEventListener("resize",e=>{e.preventDefault();const a=window.innerWidth;(a===1440||a===768)&&location.reload()});const b="/bookshelf/assets/isEmpty-zqgIGaxr.png",k="/bookshelf/assets/isEmpty2x-DbW8UP_T.png",p=document.querySelector(".list-books"),r=document.querySelector(".pagination"),f=document.querySelector(".container-loader"),C=document.querySelectorAll(".span-counter");let n=L();H();window.addEventListener("load",async e=>{e.preventDefault(),E(),A("Shopping List"),S()?(await u(0,g()),w()):(p.innerHTML=`
         <div class="empty-shop-list">
             <p class="commentary-shop-list">This page is empty, add some books and proceed to order.</p>
             <img src="${b}" srcset="${k}" alt="Empty booklist">
@@ -63,10 +63,10 @@ import{g as L,c as E,u as T,a as z,d as q,s as l}from"./assets/header-BIQSOxM5.j
                         <p class="author">${t.author}</p>
                         <div class="link-container-shop-list">
                             <a href="${t.buy_links[0].url}" target="_blank">
-                                <img src="../img/amazon.png" srcset="../img/amazon.png 1x, ../img/amazon2x.png 2x" alt="amazon"></img>
+                                <img src="./img/amazon.png" srcset="./img/amazon.png 1x, ./img/amazon2x.png 2x" alt="amazon"></img>
                             </a>
                             <a href="${t.buy_links[1].url}" target="_blank">
-                                <img src="../img/book.png" srcset="../img/book.png 1x, ../img/book2x.png 2x" alt="book"></img>
+                                <img src="./img/book.png" srcset="./img/book.png 1x, ./img/book2x.png 2x" alt="book"></img>
                             </a>
                         </div>
                     </div>
