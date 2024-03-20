@@ -1,12 +1,11 @@
 @import url(./footer.css);
 @import url(./header.css);
 @import url(./main-content.css);
-@import url(./modal-window.css);
 @import url(./scroll-up.css);
-@import url(./support-ukraine.css);
-@import url(./list-categories.css);
-@import url(./loader.css);
 @import url(./sign-up.css);
+@import url(./support-ukraine.css);
+@import url(./shopping-list.css);
+@import url(./loader.css);
 
 * {
     box-sizing: border-box;
@@ -24,7 +23,7 @@
     --colorHead: #4F2EE8;
     --colorModal: #ffffff;
     --colorModalText: #202024;
-    --colorThumb: #E0E0E0;
+    --colorBlackToWhite: rgb(0, 0, 0);
 }
 
 .dark {
@@ -35,7 +34,7 @@
     --colorBlue: #EAC645;
     --colorModal: #202024;
     --colorModalText: #ffffff;
-    --colorThumb: black;
+    --colorBlackToWhite: #ffffff;
 }
 
 body {

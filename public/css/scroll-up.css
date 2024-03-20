@@ -1,0 +1,40 @@
+/* scroll-up */
+.scroll-up {
+  position: fixed;
+  bottom: 40px;
+  right: 30px;
+  width: 65px;
+  height: 65px;
+  background-color: rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  cursor: pointer;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+.scroll-up-small {
+  width: 55px;
+  height: 55px;
+  background-color: var(--colorBlue);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* scroll-up animation */
+.scroll-up:hover {
+  animation: up 0.5s ease;
+}
+  
+@keyframes up {
+  0% {
+    transform: translateY(0);
+  }
+  80% {
+    transform: translateY(-15px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

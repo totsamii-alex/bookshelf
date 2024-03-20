@@ -8,7 +8,8 @@
     "test": "test",
     "dev": "vite",
     "build": "vite build --base=/bookshelf/",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   },
   "dependencies": {
     "axios": "^1.6.7",
+    "firebase": "^10.9.0",
     "glob": "^8.1.0",
     "izitoast": "^1.4.0",
     "simplelightbox": "^2.14.2",

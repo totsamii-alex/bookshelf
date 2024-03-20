@@ -1,0 +1,214 @@
+/* general styles */
+.section-books-list {
+  padding: 40px 0;
+}
+.name-category {
+  font-family: var(--myFont);
+  color: var(--colorBlack);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 108%;
+  letter-spacing: -0.04em;
+  text-align: left;
+}
+.list-home-books {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+}
+
+/* styles book list */
+.list-one {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  row-gap: 40px;
+}
+.card-book {
+  display: flex;
+  flex-direction: column;
+  width: 335px; 
+}
+.card-book-container {
+  padding-top: 14px;
+}
+.card-book-container p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis
+}
+.card-book-container p:nth-child(1) {
+  font-family: var(--myFont);
+  color: var(--colorBlack);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 112%;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+.card-book-container p:nth-child(2) {
+  margin-top: 4px;
+  font-family: var(--myFont);
+  color: var(--colorGray);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 117%;
+  letter-spacing: -0.04em;
+}
+.category-books {
+  font-family: var(--myFont);
+  color: var(--colorGray);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 171%;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.card-book {
+  position: relative;
+  cursor: pointer;
+}
+.list-all-cards-category {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  row-gap: 10px;
+} 
+.content-card-one-categ {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.list-cards-category {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 40px;
+}
+
+.blue-color {
+  color: var(--colorHead);
+}
+
+/* images */
+.img-example {
+  width: 100%;
+  height: 485px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+/* rank-book-container */
+.rank-book-container {
+  display: flex;
+  justify-content: flex-start;
+}
+.rank-book-container svg {
+  width: 30px;
+  height: 30px;
+}
+.rank-book-container span {
+  color: #ff4c00;
+  font-size: 20px;
+  font-family: var(--myFont);
+}
+
+
+/* button:hover */
+.card-books-category-button {
+  color: var(--colorBlack);
+  text-transform: uppercase;
+  font-size: 14px;
+  font-family: var(--myFont);
+  background-color: var(--colorWhite);
+  border: 3px solid var(--colorBlue);
+  border-radius: 40px;
+  padding: 14px 28px;
+  transition: background-color 0.4s ease;
+}
+.card-books-category-button:hover {
+  color: var(--colorWhite);
+  background-color: var(--colorBlue);
+}
+.card-books-category-button:focus {
+  color: var(--colorWhite);
+  background-color: var(--colorBlue);
+}
+
+/* div modal-window-up-container:hover */
+.card-book .textUpHover {
+  position: absolute;
+  width: 100%;
+  height: 0px;
+  border-radius:  0 0 7px 7px;
+  background-color: var(--colorYellow);
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--colorBlack);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, height 0.25s ease, visibility 0.25s ease;
+}
+.card-book:hover .textUpHover {
+  opacity: 1;
+  height: 70px;
+  visibility: visible;
+}
+
+/* media */
+@media (min-width: 768px) {
+  .rank-book-container {
+    justify-content: flex-end;
+  }
+  .rank-book-container svg {
+    width: 20px;
+    height: 20px;
+  }
+  .rank-book-container span {
+    font-size: 14px;
+  }
+
+  .card-book .textUpHover {
+    bottom: 70px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1440px) {
+  .list-cards-category {
+    column-gap: 25px;
+  }
+  .name-category {
+    font-size: 48px;
+    text-align: left;
+  }
+  .list-all-cards-category {
+    row-gap: 20px;
+  }
+  .card-book {
+    width: 218px;
+  }
+  .img-example {
+    width: 100%;
+    height: 316px;
+  }
+}
+@media (min-width: 1440px) {
+  .list-cards-category {
+    column-gap: 24px;
+  }
+  .card-book {
+    width: 180px;
+  }
+  .img-example {
+    width: 100%;
+    height: 256px;
+  }
+  .name-category {
+    font-size: 48px;
+    text-align: left;
+  }
+  .list-all-cards-category {
+    row-gap: 32px;
+  }
+}

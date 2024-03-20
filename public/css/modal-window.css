@@ -1,0 +1,216 @@
+/* general */
+.modal-window-shop {
+  display: none;
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.4);
+}
+.modal-content {
+  background-color: var(--colorModal);
+  border: 3px solid var(--colorBlack);
+  width: 335px;
+  margin: auto;
+  padding: 40px 24px;
+  gap: 40px;
+  border-radius: 18px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  animation: fadeIn 0.3s ease;
+}
+.modal-open {
+  overflow-y: hidden;
+}
+
+/* content modal window */
+.main-modal-window-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.modal-image {
+  border-radius: 8px;
+  border: 1px solid var(--colorBlack);
+  width: 287px;
+  height: 408px;
+  object-fit: cover;
+}
+
+.modal-book-description {
+  font-family: var(--myFont);
+  color: var(--colorModalText);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.04em;
+  padding-top: 20px;
+}
+.link-container-modal-window {
+  display: flex;
+  align-items: flex-end;
+  width: 115px;
+  padding-top: 20px;
+  justify-content: space-between;
+}
+
+/* image amazon/book */
+.link-container-modal-window img {
+  filter: grayscale(1);
+  border-radius: 0;
+}
+.dark .link-container-modal-window img {
+  filter: invert(1);
+}
+/* image amazon/book:hover */
+.link-container-modal-window img:hover {
+  filter: drop-shadow(0px 3px 1px rgba(0,0,0,.35));
+}
+.dark .link-container-modal-window img:hover {
+  filter: invert(1) drop-shadow(0px 3px 1px rgba(255, 255, 255, 0.35));
+}
+
+/* close icon */
+.close-window {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+#close-window {
+  stroke: var(--colorModalText);
+  transition: stroke .3s ease;
+}
+/* close icon hover */
+.close-window:hover #close-window {
+  stroke: var(--colorHead);
+}
+
+.modal-main-content-text {
+  width: 100%;
+}
+/* text modal window */
+.modal-main-content-text h2{
+  font-family: var(--myFont);
+  color: var(--colorModalText);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 112%;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+.modal-main-content-text .book-author {
+  margin-top: 4px;
+  font-family: var(--myFont);
+  color: var(--colorGray);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 117%;
+  letter-spacing: -0.04em;
+}
+#congratulations {
+  display: none;
+  font-family: var(--myFont);
+  color: var(--colorGray);
+  padding: 10px 20px 0 20px;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 120%;
+  letter-spacing: -0.04em;
+  text-align: center;
+}
+
+/* button */
+.button-modal-window {
+  color: var(--colorModalText);
+  text-transform: uppercase;
+  font-size: 12px;
+  font-family: var(--myFont);
+  background-color: var(--colorModal);
+  border: 3px solid var(--colorBlue);
+  border-radius: 40px;
+  padding: 14px 20px;
+  width: 100%;
+  transition: background-color 0.4s ease;
+}
+/* button:hover */
+.button-modal-window:hover {
+  color: var(--colorModal);
+  background-color: var(--colorBlue);
+}
+.button-modal-window:focus {
+  color: var(--colorModal);
+  background-color: var(--colorBlue);
+}
+
+/* animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(-80px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(0) scale(1); 
+  }
+}
+
+/* media */
+@media (min-width: 768px) {
+  .modal-image {
+    width: 192px;
+    height: 281px;
+  }
+  .modal-content {
+    border-radius: 18px;
+    padding: 40px;
+    width: 579px;
+  }
+  .main-modal-window-content {
+    flex-direction: row;
+    gap: 24px;
+  }
+  .modal-image {
+    margin: 0;
+  }
+  /* text */
+  .modal-main-content-text h2 {
+    font-size: 24px;
+  }
+  .modal-main-content-text .book-author {
+    font-size: 14px;
+  }
+  #congratulations {
+    font-size: 14px;
+  }
+  
+  /* button */
+  .button-modal-window {
+    font-size: 12px;
+    height: 64px;
+    font-size: 18px;
+    line-height: 133%;
+    letter-spacing: -0.01em;
+  }
+
+  /* close icon */
+  .close-window {
+    top: 24px;
+    right: 24px;
+    width: 28px;
+    height: 28px;
+  }
+}
