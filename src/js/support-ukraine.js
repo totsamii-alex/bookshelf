@@ -2,7 +2,6 @@
 const containerImages = document.querySelector('.container-image-support-ukraine');
 const buttonImageList = document.querySelector('.button-supp-uk');
 
-
 import image1 from '../img/image-1.png';
 import image2 from '../img/image-2.png';
 import image3 from '../img/image-3.png';
@@ -33,7 +32,7 @@ const arraySupport = [
       srcset: `${image3} 1x, ${image3.replace('.png', '-2x.png')} 2x`,
     },
     {
-      title: 'RAZOM ',
+      title: 'RAZOM',
       url: 'https://www.razomforukraine.org/',
       src: image4,
       srcset: `${image4} 1x, ${image4.replace('.png', '-2x.png')} 2x`,
@@ -70,8 +69,6 @@ const arraySupport = [
     },
 ];
 
-
-
 buttonImageList.addEventListener("click", async (e) => {
   e.preventDefault();
 
@@ -88,7 +85,7 @@ export async function createSupportUkraine() {
             <p>0${parseInt(i)+1}</p>
             <div>
               <a href="${arraySupport[i].url}" target="_blank">
-                <img class="img-support-ukraine" src="${arraySupport[i].src}" srcset="${arraySupport[i].srcset}" alt="${arraySupport[i].title}">
+                <img class="img-support-ukraine" src="${arraySupport[i].src}" alt="${arraySupport[i].title}">
               </a>
             </div>
           </li>`;
