@@ -9,7 +9,7 @@ import "./reload.js";
 import sprite from "../img/blocks.svg";
 import empty from "../img/isEmpty.png";
 import empty2x from "../img/isEmpty2x.png";
-import '../js/header.js';
+import './header.js';
 
 const listBooks = document.querySelector(".list-books");
 const ulPagination = document.querySelector('.pagination');
@@ -248,10 +248,10 @@ async function showBooksInShoppingList(book_id) {
                         <p class="author">${data.author}</p>
                         <div class="link-container-shop-list">
                             <a href="${data.buy_links[0].url}" target="_blank">
-                                <img src="../img/amazon.png" srcset="../img/amazon.png 1x, ../img/amazon2x.png 2x" alt="amazon"></img>
+                                <img src="./img/amazon.png" srcset="./img/amazon.png 1x, ./img/amazon2x.png 2x" alt="amazon"></img>
                             </a>
                             <a href="${data.buy_links[1].url}" target="_blank">
-                                <img src="../img/book.png" srcset="../img/book.png 1x, ../img/book2x.png 2x" alt="book"></img>
+                                <img src="./img/book.png" srcset="./img/book.png 1x, ./img/book2x.png 2x" alt="book"></img>
                             </a>
                         </div>
                     </div>
