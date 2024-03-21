@@ -45,10 +45,10 @@ listOne.addEventListener("click", async (e) => {
                     shopBook += `
                     <div class="link-container-modal-window">
                         <a href="${book.volumeInfo.previewLink}" target="_blank">
-                            <img src="./img/amazon.png" srcset="./img/amazon.png 1x, ./img/amazon2x.png 2x" alt="amazon"></img>
+                            <img src="../img/amazon.png" srcset="../img/amazon.png 1x, ../img/amazon2x.png 2x" alt="amazon"></img>
                         </a>
                         <a href="${book.volumeInfo.infoLink}" target="_blank">
-                            <img src="./img/book.png" srcset="./img/book.png 1x, ./img/book2x.png 2x" alt="book"></img>
+                            <img src="../img/book.png" srcset="../img/book.png 1x, ../img/book2x.png 2x" alt="book"></img>
                         </a>
                     </div>
 
