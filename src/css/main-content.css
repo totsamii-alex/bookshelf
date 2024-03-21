@@ -161,7 +161,7 @@
   background-color: var(--colorWhite);
   border: 3px solid var(--colorBlue);
   border-radius: 40px;
-  padding: 14px 28px;
+  padding: 10px 20px;
   transition: background-color 0.4s ease;
 }
 .card-books-category-button:hover {
@@ -176,7 +176,10 @@
 /* div modal-window-up-container:hover */
 .card-book .textUpHover {
   position: absolute;
-  width: 100%;
+  width: 100%;    
+  font-size: 10px;
+  font-weight: bold;
+  font-family: var(--myFont);
   height: 0px;
   border-radius:  0 0 7px 7px;
   background-color: var(--colorYellow);

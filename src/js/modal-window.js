@@ -9,6 +9,8 @@ const spanCounter = document.querySelectorAll('.span-counter');
 const modalWindow = document.querySelector(".modal-window-shop");
 const listOne = document.querySelector(".list-one");
 
+const API_KEY = 'AIzaSyCbhd8jVjDvkoH3mR5P3m_eE4AVPzLy9_4';
+const API_URL = 'https://www.googleapis.com/books/v1/volumes';
 // local storage //
 let arrayBooksShop = getMapFromLocalStorage();
 // local storage //
@@ -20,31 +22,32 @@ listOne.addEventListener("click", async (e) => {
     if (e.target.classList.contains('textUpHover')) {
         document.body.classList.add('modal-open');
         const _id = e.target.parentNode.dataset.category;
-        const response = await axios.get(`https://books-backend.p.goit.global/books/${_id}`);
-        const book = response.data;
+        const book = await searchBookById(_id);
+
         console.log(typeof book);
+
         let shopBook = `
             <svg class="close-window" fill="none">
                 <use id="close-window" href="${sprite}#close"></use>
             </svg>
         <div class="">
             <div class="main-modal-window-content">
-                <div class="modal-image-container"><img class="modal-image" src="${book.book_image}" alt="${book.title}"></div>
+                <div class="modal-image-container"><img class="modal-image" src="${!(book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail) ? imageNoBook : book.volumeInfo.imageLinks.thumbnail}" alt="${book.volumeInfo.title}"></div>
         
                 <div class="modal-main-content-text">
-                    <h2 class="">${book.title}</h2>
-                    <p class="book-author">${book.author}</p>
+                    <h2 class="">${book.volumeInfo.title}</h2>
+                    <p class="book-author">${book.volumeInfo.authors}</p>
                     `;
-                    if (book.description) {
+                    if (true) {
                         shopBook += `
-                        <p class="modal-book-description">${book.description}</p>`;
+                        <div class="modal-book-description">${book.volumeInfo.description}</div>`;
                     }
                     shopBook += `
                     <div class="link-container-modal-window">
-                        <a href="${book.buy_links[0].url}" target="_blank">
+                        <a href="${book.volumeInfo.previewLink}" target="_blank">
                             <img src="./img/amazon.png" srcset="./img/amazon.png 1x, ./img/amazon2x.png 2x" alt="amazon"></img>
                         </a>
-                        <a href="${book.buy_links[1].url}" target="_blank">
+                        <a href="${book.volumeInfo.infoLink}" target="_blank">
                             <img src="./img/book.png" srcset="./img/book.png 1x, ./img/book2x.png 2x" alt="book"></img>
                         </a>
                     </div>
@@ -55,13 +58,13 @@ listOne.addEventListener("click", async (e) => {
         if (arrayBooksShop.has(book.title)) {
             shopBook += `
         <div>
-            <button class="button-modal-window" type="button" data-id="${book._id}" data-title="${book.title}">Remove from the shopping list</button>
+            <button class="button-modal-window" type="button" data-id="${book.id}" data-title="${book.title}">Remove from the shopping list</button>
             <p id="congratulations" style="display: block;">Сongratulations! You have added the book to the shopping list. To delete, press the button “Remove from the shopping list”.</p>
         </div>`;
         } else {
             shopBook += `
             <div>
-                <button class="button-modal-window" type="button" data-id="${book._id}" data-title="${book.title}">Add to shopping list</button>
+                <button class="button-modal-window" type="button" data-id="${book.id}" data-title="${book.title}">Add to shopping list</button>
                 <p id="congratulations" style="display: none;">Сongratulations! You have added the book to the shopping list. To delete, press the button “Remove from the shopping list”.</p>
             </div>`;
         }
@@ -118,6 +121,23 @@ async function bookSaveInShop(buttonShL) {
         updateLocalStorage(arrayBooksShop); 
         updateArrayMap(arrayBooksShop);
         setSpanCounter();
+    }
+}
+
+async function searchBookById(bookId) {
+    try {
+        const response = await axios.get(`${API_URL}/${bookId}`, {
+            params: {
+                key: API_KEY
+            }
+        });
+        console.log(response.data);
+        return response.data;
+
+        
+
+    } catch (error) {
+        console.log('Ошибка при выполнении запроса: ', error);
     }
 }
 

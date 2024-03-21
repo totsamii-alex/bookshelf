@@ -129,11 +129,10 @@ async function sortGalery(category) {
                     <li class="list-all-cards-category" style="align-items: flex-start;">
                         <ul class="list-cards-category">`;
                         for (let book of books) {
-                            let imageBook = !(book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail) ? imageNoBook : book.volumeInfo.imageLinks.thumbnail;
                             booksCard += `
                                     <li data-category="${book.id}" class="card-book">
                                         <a class="gallery-link" href="${book.volumeInfo.canonicalVolumeLink}">
-                                            <img class="img-example" src="${imageBook}" alt="${book.volumeInfo.title}">
+                                            <img class="img-example" src="${!(book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail) ? imageNoBook : book.volumeInfo.imageLinks.thumbnail}" alt="${book.volumeInfo.title}">
                                         </a>
                                         <div class="textUpHover">Quick view</div>
                                         <div class="card-book-container">

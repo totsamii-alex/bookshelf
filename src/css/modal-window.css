@@ -16,7 +16,7 @@
   width: 335px;
   margin: auto;
   padding: 40px 24px;
-  gap: 40px;
+  gap: 30px;
   border-radius: 18px;
   position: absolute;
   top: 50%;
@@ -41,9 +41,8 @@
 }
 .modal-image {
   border-radius: 8px;
-  border: 1px solid var(--colorBlack);
-  width: 287px;
-  height: 408px;
+  width: 160px;
+  height: 220px;
   object-fit: cover;
 }
 
@@ -54,7 +53,9 @@
   font-size: 14px;
   line-height: 129%;
   letter-spacing: -0.04em;
-  padding-top: 20px;
+  margin-top: 20px;
+  max-height: 180px;
+  overflow-y: scroll;
 }
 .link-container-modal-window {
   display: flex;
