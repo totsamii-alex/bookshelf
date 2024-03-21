@@ -9,6 +9,7 @@ import {scrollUp, scrollUpZero} from "./js/scroll-up.js";
 import './js/modal-window.js';
 import './js/header.js';
 import sprite from "./img/blocks.svg";
+import imageNoBook from "./img/no-image-book.png"
 
 const listOne = document.querySelector(".list-one");
 const listCategories = document.querySelector(".list_categories");
@@ -61,6 +62,7 @@ listCategories.addEventListener("click", async (e) => {
 
         selectedCategory = e.target.textContent;
         addColorLastWord(selectedCategory);
+        input.value = "";
         sortGalery(selectedCategory);
     }
 });
@@ -121,11 +123,11 @@ async function sortGalery(category) {
                     <li class="list-all-cards-category" style="align-items: flex-start;">
                         <ul class="list-cards-category">`;
                         for (let book of books) {
-                            if (book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail) {
-                                booksCard += `
+                            let imageBook = !(book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail) ? imageNoBook : book.volumeInfo.imageLinks.thumbnail;
+                            booksCard += `
                                     <li data-category="${book.id}" class="card-book">
                                         <a class="gallery-link" href="${book.volumeInfo.canonicalVolumeLink}">
-                                            <img class="img-example" src="${book.volumeInfo.imageLinks.thumbnail}" alt="${book.volumeInfo.title}">
+                                            <img class="img-example" src="${imageBook}" alt="${book.volumeInfo.title}">
                                         </a>
                                         <div class="textUpHover">Quick view</div>
                                         <div class="card-book-container">
@@ -139,10 +141,7 @@ async function sortGalery(category) {
                                             </div>
                                         </div>
                                     </li>
-                                `;
-                            } else {
-                                console.log('Отсутствует изображение для книги');
-                            }
+                            `;
                         }
             booksCard += `</ul>
                     </li>`;
