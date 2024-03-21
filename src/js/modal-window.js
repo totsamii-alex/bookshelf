@@ -11,6 +11,11 @@ const modalWindow = document.querySelector(".modal-window-shop");
 const listOne = document.querySelector(".list-one");
 const loadingIndicator = document.querySelector(".modal-window-shop .container-loader");
 
+import amazon from '../img/amazon.png';
+import amazon2x from '../img/amazon2x.png';
+import book from '../img/book.png';
+import book2x from '../img/book2x.png';
+
 const API_KEY = 'AIzaSyCbhd8jVjDvkoH3mR5P3m_eE4AVPzLy9_4';
 const API_URL = 'https://www.googleapis.com/books/v1/volumes';
 // local storage //
@@ -50,10 +55,10 @@ listOne.addEventListener("click", async (e) => {
                     shopBook += `
                     <div class="link-container-modal-window">
                         <a href="${book.volumeInfo.previewLink}" target="_blank">
-                            <img src="../img/amazon.png" srcset="../img/amazon.png 1x, ../img/amazon2x.png 2x" alt="amazon"></img>
+                            <img src="${amazon}" srcset="${amazon}, ${amazon2x} 2x" alt="amazon"></img>
                         </a>
                         <a href="${book.volumeInfo.infoLink}" target="_blank">
-                            <img src="../img/book.png" srcset="../img/book.png 1x, ../img/book2x.png 2x" alt="book"></img>
+                            <img src="${book}" srcset="${book}, ${book2x} 2x" alt="book"></img>
                         </a>
                     </div>
 
