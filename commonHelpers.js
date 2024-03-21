@@ -13,10 +13,10 @@ import{g as p,s as Q,u as v,a as f,c as h,b as y}from"./assets/header-CUv6V0eE.j
                         <div class="modal-book-description">${t.volumeInfo.description}</div>`,s+=`
                     <div class="link-container-modal-window">
                         <a href="${t.volumeInfo.previewLink}" target="_blank">
-                            <img src="./img/amazon.png" srcset="./img/amazon.png 1x, ./img/amazon2x.png 2x" alt="amazon"></img>
+                            <img src="../img/amazon.png" srcset="../img/amazon.png 1x, ../img/amazon2x.png 2x" alt="amazon"></img>
                         </a>
                         <a href="${t.volumeInfo.infoLink}" target="_blank">
-                            <img src="./img/book.png" srcset="./img/book.png 1x, ./img/book2x.png 2x" alt="book"></img>
+                            <img src="../img/book.png" srcset="../img/book.png 1x, ../img/book2x.png 2x" alt="book"></img>
                         </a>
                     </div>
 
