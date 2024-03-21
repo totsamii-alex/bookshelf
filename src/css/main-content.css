@@ -14,8 +14,66 @@
 .list-home-books {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 20px;
   width: 100%;
+}
+.for-button {
+  display: flex;
+  justify-content: flex-end;
+}
+/* svg orientation */
+.orientation {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.orientation svg {
+  width: 30px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+}
+.orientation svg use{
+  stroke: var(--colorModalText);
+  fill: var(--colorModalText);
+}
+
+
+/* grid */
+.grid-position .card-book {
+  flex-direction: row;
+  width: 335px;
+  gap: 20px;
+}
+.grid-position .img-example {
+  width: 120px;
+  height: 180px;
+}
+.grid-position .card-book-container {
+  padding-top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.book-desc {
+  display: none;
+
+  font-family: var(--myFont);
+  color: var(--colorBlack);
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 129%;
+  letter-spacing: -0.04em;
+  padding-top: 10px;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.grid-position .book-desc {
+  display: -webkit-box;
+}
+.grid-position .card-book-container p:not(.book-desc) {
+  white-space: wrap;
 }
 
 /* search */
@@ -58,7 +116,7 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  row-gap: 40px;
+  row-gap: 20px;
 }
 .card-book {
   display: flex;
@@ -68,7 +126,7 @@
 .card-book-container {
   padding-top: 10px;
 }
-.card-book-container p {
+.card-book-container p:not(.book-desc) {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis
@@ -109,7 +167,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  row-gap: 10px;
+  row-gap: 20px;
 } 
 .content-card-one-categ {
   display: flex;
@@ -175,6 +233,7 @@
 
 /* div modal-window-up-container:hover */
 .card-book .textUpHover {
+  display: none;
   position: absolute;
   width: 100%;    
   font-size: 10px;
@@ -213,6 +272,7 @@
 
   .card-book .textUpHover {
     bottom: 70px;
+    display: block;
   }
 }
 @media (min-width: 768px) and (max-width: 1440px) {

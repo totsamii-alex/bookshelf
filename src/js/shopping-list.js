@@ -16,6 +16,7 @@ const ulPagination = document.querySelector('.pagination');
 const loadingIndicator = document.querySelector(".container-loader");
 const spanCounter = document.querySelectorAll('.span-counter');
 
+
 // local storage
 let arrayBooksShop = getMapFromLocalStorage();
 //

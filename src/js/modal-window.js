@@ -4,10 +4,12 @@ import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 import {getMapFromLocalStorage, updateLocalStorage, updateArrayMap} from "./local-storage.js";
 import sprite from "../img/blocks.svg";
+import imageNoBook from "../img/no-image-book.png";
 
 const spanCounter = document.querySelectorAll('.span-counter');
 const modalWindow = document.querySelector(".modal-window-shop");
 const listOne = document.querySelector(".list-one");
+const loadingIndicator = document.querySelector(".modal-window-shop .container-loader");
 
 const API_KEY = 'AIzaSyCbhd8jVjDvkoH3mR5P3m_eE4AVPzLy9_4';
 const API_URL = 'https://www.googleapis.com/books/v1/volumes';
@@ -19,9 +21,12 @@ setSpanCounter();
 listOne.addEventListener("click", async (e) => {
     e.preventDefault();
 
-    if (e.target.classList.contains('textUpHover')) {
+    if (e.target.classList.contains('img-example')) {
+
+        loadingIndicator.style.display = "block";
+
         document.body.classList.add('modal-open');
-        const _id = e.target.parentNode.dataset.category;
+        const _id = e.target.parentNode.parentNode.dataset.category;
         const book = await searchBookById(_id);
 
         console.log(typeof book);
@@ -40,7 +45,7 @@ listOne.addEventListener("click", async (e) => {
                     `;
                     if (true) {
                         shopBook += `
-                        <div class="modal-book-description">${book.volumeInfo.description}</div>`;
+                        <div class="modal-book-description">${!(book.volumeInfo.description) ? "" : book.volumeInfo.description}</div>`;
                     }
                     shopBook += `
                     <div class="link-container-modal-window">
@@ -69,6 +74,8 @@ listOne.addEventListener("click", async (e) => {
             </div>`;
         }
         
+        loadingIndicator.style.display = "none";
+
         document.querySelector(".modal-content").innerHTML = shopBook;
         document.querySelector(".modal-window-shop").style.display = "block";
     }

@@ -16,7 +16,7 @@
   width: 335px;
   margin: auto;
   padding: 22px 15px;
-  gap: 30px;
+  gap: 20px;
   border-radius: 18px;
   position: absolute;
   top: 50%;
@@ -43,6 +43,7 @@
   border-radius: 8px;
   width: 160px;
   height: 220px;
+  border: 2px solid black;
   object-fit: cover;
 }
 
@@ -107,7 +108,7 @@
   font-family: var(--myFont);
   color: var(--colorModalText);
   font-weight: 700;
-  font-size: 16px;
+  font-size: 13px;
   line-height: 112%;
   letter-spacing: -0.04em;
   text-transform: uppercase;

@@ -9,13 +9,17 @@ import {scrollUp, scrollUpZero} from "./js/scroll-up.js";
 import './js/modal-window.js';
 import './js/header.js';
 import sprite from "./img/blocks.svg";
-import imageNoBook from "./img/no-image-book.png"
+import imageNoBook from "./img/no-image-book.png";
 
 const listOne = document.querySelector(".list-one");
 const listCategories = document.querySelector(".list_categories");
 const loadingIndicator = document.querySelector(".container-loader");
+const loadingIndicatorAfter = document.querySelector(".button-loader .container-loader");
 const input = document.querySelector('.input_searching');
 const form = document.querySelector('.form_images');
+const forButton = document.querySelector('.for-button');
+const list = document.querySelector(".svg-list-orientation");
+const gridOrientation = document.querySelector(".svg-square-grid-orientation");
 
 const API_KEY = 'AIzaSyCbhd8jVjDvkoH3mR5P3m_eE4AVPzLy9_4';
 const API_URL = 'https://www.googleapis.com/books/v1/volumes';
@@ -29,6 +33,7 @@ const categories = [
 
 const randomKeyword = categories[Math.floor(Math.random() * categories.length)];
 let startIndex = 20;
+let query;
 
 window.addEventListener("load", async (e) => {
     e.preventDefault();
@@ -66,21 +71,17 @@ listCategories.addEventListener("click", async (e) => {
         input.value = "";
         startIndex = 0;
         sortGalery(selectedCategory);
+        scrollToElementId('list-name');
     }
 });
 
-listOne.addEventListener("click", async (e) => {
+forButton.addEventListener("click", async (e) => {
     e.preventDefault();
+    const category = e.target.dataset.category;
 
-    if (e.target.classList.contains('card-books-category-button')) {
-        const buttonElement = e.target;
-        const category = buttonElement.dataset.category;
-
-        scrollToElement('list-name');
-        startIndex += 10;
-        sortGalery();
-        addColorLastWord(category);
-    }
+    startIndex += 9;
+    nextGalery();
+    addColorLastWord(category);
 });
 
 async function mainCategories() {
@@ -120,7 +121,7 @@ async function sortGalery(category) {
         loadingIndicator.style.display = 'block';
         
         const data = !input.value.trim() ? randomKeyword : input.value.trim();
-        const query = !category ? data : category;
+        query = !category ? data : category;
         const books = await searchBooks(query);
         console.log(books);
         console.log(query);
@@ -134,10 +135,13 @@ async function sortGalery(category) {
                                         <a class="gallery-link" href="${book.volumeInfo.canonicalVolumeLink}">
                                             <img class="img-example" src="${!(book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail) ? imageNoBook : book.volumeInfo.imageLinks.thumbnail}" alt="${book.volumeInfo.title}">
                                         </a>
-                                        <div class="textUpHover">Quick view</div>
                                         <div class="card-book-container">
-                                            <p>${book.volumeInfo.title}</p>
-                                            <p>${book.volumeInfo.authors}</p>
+                                            <div>
+                                                <p>${book.volumeInfo.title}</p>
+                                                <p>${!(book.volumeInfo.authors) ? "" : book.volumeInfo.authors}</p>
+                                                <p class="book-desc">${!(book.volumeInfo.description) ? "" : book.volumeInfo.description}</p>
+                                            </div>
+
                                             <div class="rank-book-container">
                                                 <svg fill="none">
                                                     <use id="star" href="${sprite}#star"></use>
@@ -149,15 +153,62 @@ async function sortGalery(category) {
                             `;
                         }
             booksCard += `</ul>
-                        <button class="card-books-category-button" type="button" data-category="${query}">See more</button>
                     </li>`;
         listOne.innerHTML = booksCard;
+        forButton.innerHTML = `<button class="card-books-category-button" type="button" data-category="${query}">See more</button>`;
         
     } catch(error) {
         console.log('Ошибка при выполнении запроса: ' + error);
     } finally {
-        simpleLightbox();
         loadingIndicator.style.display = 'none';
+    }
+}
+
+async function nextGalery() {
+    try {
+        loadingIndicatorAfter.style.display = 'block';
+        forButton.style.display = 'none';
+        
+        const books = await searchBooks(query);
+        console.log(books);
+        console.log(query);
+
+        let booksCard = `
+                    <li class="list-all-cards-category" style="align-items: flex-start;">
+                        <ul class="list-cards-category">`;
+                        for (let book of books) {
+                            booksCard += `
+                                    <li data-category="${book.id}" class="card-book">
+                                        <a class="gallery-link" href="${book.volumeInfo.canonicalVolumeLink}">
+                                            <img class="img-example" src="${!(book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail) ? imageNoBook : book.volumeInfo.imageLinks.thumbnail}" alt="${book.volumeInfo.title}">
+                                        </a>
+                                        <div class="card-book-container">
+                                            <div>
+                                                <p>${book.volumeInfo.title}</p>
+                                                <p>${!(book.volumeInfo.authors) ? "" : book.volumeInfo.authors}</p>
+                                                <p class="book-desc">${!(book.volumeInfo.description) ? "" : book.volumeInfo.description}</p>
+                                            </div>
+                                            <div class="rank-book-container">
+                                                <svg fill="none">
+                                                    <use id="star" href="${sprite}#star"></use>
+                                                </svg>
+                                                <span>${!(book.volumeInfo.pageCount) ? 0 : book.volumeInfo.pageCount}</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                            `;
+                        }
+            booksCard += `</ul>
+                    </li>`;
+
+        listOne.insertAdjacentHTML('beforeend', booksCard);
+        
+    } catch(error) {
+        console.log('Ошибка при выполнении запроса: ' + error);
+    } finally {
+        scrollToElement(450);
+        loadingIndicatorAfter.style.display = 'none';
+        forButton.style.display = 'flex';
     }
 }
 
@@ -254,7 +305,28 @@ async function setColorGaleryList(e) {
 //     }
 // }
 
-function scrollToElement(id) {
+list.addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    console.log('list');
+    
+    document.querySelector('.list-one').classList.remove('grid-position');
+});
+gridOrientation.addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    document.querySelector('.list-one').classList.add('grid-position');
+});
+
+function scrollToElement(px) {
+    window.scrollBy({
+        top: px,
+        behavior: "smooth",
+    });
+}
+function scrollToElementId(id) {
     const element = document.getElementById(id);
-    element.scrollIntoView();
+    element.scrollIntoView({
+        behavior: 'smooth'
+    });
 }
