@@ -105,6 +105,7 @@ async function searchBooks(search) {
                 q: search,
                 printType: 'books',
                 startIndex: startIndex,
+                orderBy: 'relevance',
                 maxResults: 9,
                 key: API_KEY
             }
@@ -177,6 +178,9 @@ async function nextGalery() {
                     <li class="list-all-cards-category" style="align-items: flex-start;">
                         <ul class="list-cards-category">`;
                         for (let book of books) {
+                            if (book.volumeInfo.averageRating) {
+                                console.log(book.volumeInfo.title + " / " + book.volumeInfo.ratingsCount);
+                            }
                             booksCard += `
                                     <li data-category="${book.id}" class="card-book">
                                         <a class="gallery-link" href="${book.volumeInfo.canonicalVolumeLink}">

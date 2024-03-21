@@ -51,6 +51,7 @@
 }
 .grid-position .card-book-container {
   padding-top: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
