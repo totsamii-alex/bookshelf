@@ -28,6 +28,7 @@ const categories = [
 ];
 
 const randomKeyword = categories[Math.floor(Math.random() * categories.length)];
+let startIndex = 20;
 
 window.addEventListener("load", async (e) => {
     e.preventDefault();
@@ -49,7 +50,7 @@ form.addEventListener('submit', async (e) => {
         });
         return;
     }
-    
+    startIndex = 0;
     sortGalery();
 });
 
@@ -63,6 +64,7 @@ listCategories.addEventListener("click", async (e) => {
         selectedCategory = e.target.textContent;
         addColorLastWord(selectedCategory);
         input.value = "";
+        startIndex = 0;
         sortGalery(selectedCategory);
     }
 });
@@ -74,7 +76,8 @@ listOne.addEventListener("click", async (e) => {
         const buttonElement = e.target;
         const category = buttonElement.dataset.category;
 
-        setColorGaleryList(category);
+        scrollToElement('list-name');
+        startIndex += 10;
         sortGalery();
         addColorLastWord(category);
     }
@@ -100,7 +103,8 @@ async function searchBooks(search) {
             params: {
                 q: search,
                 printType: 'books',
-                maxResults: 20,
+                startIndex: startIndex,
+                maxResults: 9,
                 key: API_KEY
             }
         });
@@ -116,8 +120,10 @@ async function sortGalery(category) {
         loadingIndicator.style.display = 'block';
         
         const data = !input.value.trim() ? randomKeyword : input.value.trim();
-        const books = !category ? await searchBooks(data) : await searchBooks(category);
+        const query = !category ? data : category;
+        const books = await searchBooks(query);
         console.log(books);
+        console.log(query);
 
         let booksCard = `
                     <li class="list-all-cards-category" style="align-items: flex-start;">
@@ -137,13 +143,14 @@ async function sortGalery(category) {
                                                 <svg fill="none">
                                                     <use id="star" href="${sprite}#star"></use>
                                                 </svg>
-                                                <span>${book.volumeInfo.pageCount}</span>
+                                                <span>${!(book.volumeInfo.pageCount) ? 0 : book.volumeInfo.pageCount}</span>
                                             </div>
                                         </div>
                                     </li>
                             `;
                         }
             booksCard += `</ul>
+                        <button class="card-books-category-button" type="button" data-category="${query}">See more</button>
                     </li>`;
         listOne.innerHTML = booksCard;
         
@@ -151,7 +158,6 @@ async function sortGalery(category) {
         console.log('Ошибка при выполнении запроса: ' + error);
     } finally {
         simpleLightbox();
-        scrollUp();
         loadingIndicator.style.display = 'none';
     }
 }
@@ -248,3 +254,8 @@ async function setColorGaleryList(e) {
 //         loadingIndicator.style.display = 'none';
 //     }
 // }
+
+function scrollToElement(id) {
+    const element = document.getElementById(id);
+    element.scrollIntoView();
+}
