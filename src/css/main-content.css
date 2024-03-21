@@ -18,6 +18,41 @@
   width: 100%;
 }
 
+/* search */
+.form_images {
+  display: flex;
+  gap: 8px;
+}
+.input_searching {
+  width: 300px;
+  height: 40px;
+  border-radius: 15px;
+  border: 1px solid var(--colorModalText);
+  padding-left: 16px;
+  font-family: var(--myFont);
+  font-size: 16px;
+  letter-spacing: 0.64px;
+}
+.button_submit {
+  background-color: var(--colorBlue);
+  color: var(--colorWhite);
+  border-radius: 15px;
+  padding: 8px 16px;
+  font-family: var(--myFont);
+  font-size: 16px;
+  font-weight: 500;
+  border: 1px solid var(--colorBody);
+}
+.input_searching:focus {
+  border: 1px solid var(--colorBlue);
+}
+.input_searching:hover {
+  border: 1px solid var(--colorBlue);
+}
+.input_searching:active {
+  border: 1px solid var(--colorBlue);
+}
+
 /* styles book list */
 .list-one {
   display: flex;

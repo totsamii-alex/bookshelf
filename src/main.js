@@ -13,6 +13,20 @@ import sprite from "./img/blocks.svg";
 const listOne = document.querySelector(".list-one");
 const listCategories = document.querySelector(".list_categories");
 const loadingIndicator = document.querySelector(".container-loader");
+const input = document.querySelector('.input_searching');
+const form = document.querySelector('.form_images');
+
+const API_KEY = 'AIzaSyCbhd8jVjDvkoH3mR5P3m_eE4AVPzLy9_4';
+const API_URL = 'https://www.googleapis.com/books/v1/volumes';
+const categories = [
+    'Science Fiction','Romance','Mystery','Adventure','Thriller','Horror','Fantasy','Mysteries',
+    'Drama','Historical Fiction','Poetry','Classics','Biography','Autobiography','Children\'s Literature',
+    'Comics','Humor','Religion','Philosophy','Psychology','Self-Help','Travel','Cooking','Art','Music',
+    'Sports','Science','Technology','Business','Finance','Education','Health','Fitness',
+    'Lifestyle','Gardening','Parenting','Crafts','Hobbies','Reference','Manga'
+];
+
+const randomKeyword = categories[Math.floor(Math.random() * categories.length)];
 
 window.addEventListener("load", async (e) => {
     e.preventDefault();
@@ -20,8 +34,22 @@ window.addEventListener("load", async (e) => {
     mainCategories();
     createSupportUkraine();
     addColorLastWord("Best Sellers Books");
-    await mainGalery();
+    sortGalery();
     scrollUpZero();
+});
+
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (!input.value.trim()) {
+        iziToast.error({
+            title: "Error",
+            message: "Please enter a keyword for search",      
+        });
+        return;
+    }
+    
+    sortGalery();
 });
 
 listCategories.addEventListener("click", async (e) => {
@@ -32,14 +60,8 @@ listCategories.addEventListener("click", async (e) => {
         setColorGaleryList(e);
 
         selectedCategory = e.target.textContent;
-        if (selectedCategory === "All categories") {
-            addColorLastWord("Best Sellers Books");
-            mainGalery();
-        }
-        else {
-            addColorLastWord(selectedCategory);
-            sortGalery(selectedCategory);
-        }
+        addColorLastWord(selectedCategory);
+        sortGalery(selectedCategory);
     }
 });
 
@@ -48,121 +70,86 @@ listOne.addEventListener("click", async (e) => {
 
     if (e.target.classList.contains('card-books-category-button')) {
         const buttonElement = e.target;
-        const dataset = buttonElement.dataset.category;
+        const category = buttonElement.dataset.category;
 
-        setColorGaleryList(dataset);
-        sortGalery(dataset);
-        addColorLastWord(dataset);
+        setColorGaleryList(category);
+        sortGalery();
+        addColorLastWord(category);
     }
 });
 
 async function mainCategories() {
     try {
-        let  contentCategories = `<li class="categories selected">All categories</li>`;
-        const response = await axios.get(`https://books-backend.p.goit.global/books/category-list`);
-        const data = response.data;
+        let  contentCategories = ``;
 
-        for (let i in data) {
-            contentCategories += `<li id="${data[i].list_name}" class="categories">${data[i].list_name}</li>`;
+        for (let category of categories) {
+            contentCategories += `<li id="${category}" class="categories">${category}</li>`;
         }
         listCategories.innerHTML = contentCategories;
 
     } catch(error) {
-        iziToast.error({
-            title: "Error",
-            message: error.message,
-        });
-    } finally {
+        console.log('Ошибка при выполнении запроса: ' + error);
     }
 }
 
-async function mainGalery() {
+async function searchBooks(search) {
     try {
-        loadingIndicator.style.display = 'flex';
-        const response = await axios.get(`https://books-backend.p.goit.global/books/top-books`);
-        const data = response.data;
-        let booksCard = ``;
-        
-        const widthWindow = getWidthWindow();
-        for (let i in data) {
-            booksCard += `
-                    <li class="list-all-cards-category"><div class="content-card-one-categ"><h2 class="category-books">${data[i].list_name}</h2>
-                        <ul id="${data[i].list_name}" class="list-cards-category">`;
-            
-            for (let j in data[i].books) {
-                booksCard += `
-                    <li data-category="${data[i].books[j]._id}" class="card-book">
-                        <a id="${data[i].books[j]._id}" class="gallery-link" href="${data[i].books[j].book_image}"><img class="img-example" src="${data[i].books[j].book_image}" alt="${data[i].books[j].title}. Category: ${data[i].list_name}"></img></a>
-                        <div class="textUpHover">Quick view</div>
-                        <div class="card-book-container">
-                            <p>${data[i].books[j].title}</p>
-                            <p>${data[i].books[j].author}</p>
-                            <div class="rank-book-container">
-                                <svg fill="none">
-                                    <use id="star" href="${sprite}#star"></use>
-                                </svg>
-                                <span>${data[i].books[j].rank_last_week}</span>
-                            </div>
-                        </div>
-                    </li>
-                `;
-                if (widthWindow == j) break;
+        const response = await axios.get(API_URL, {
+            params: {
+                q: search,
+                printType: 'books',
+                maxResults: 20,
+                key: API_KEY
             }
-            booksCard += `</ul></div>
-                        <button class="card-books-category-button" type="button" data-category="${data[i].list_name}">See more</button>
-                    </li>`;
-        }
-        listOne.innerHTML = booksCard;
-        
-    } catch(error) {
-        iziToast.error({
-            title: "Error",
-            message: error.message,
         });
-    } finally {
-        simpleLightbox();
-        scrollUp();
-        loadingIndicator.style.display = 'none';
+        return response.data.items;
+
+    } catch (error) {
+        console.log('Ошибка при выполнении запроса: ' + error);
     }
 }
 
-async function sortGalery(searchProperty) {
+async function sortGalery(category) {
     try {
         loadingIndicator.style.display = 'block';
-        const response = await axios.get(`https://books-backend.p.goit.global/books/category?category=${searchProperty}`);
-            const data = response.data;
-            let booksCard = ``;
-            booksCard += `
+        
+        const data = !input.value.trim() ? randomKeyword : input.value.trim();
+        const books = !category ? await searchBooks(data) : await searchBooks(category);
+        console.log(books);
+
+        let booksCard = `
                     <li class="list-all-cards-category" style="align-items: flex-start;">
                         <ul class="list-cards-category">`;
-            
-                        for (let i in data) {
-                            booksCard += `
-                                    <li data-category="${data[i]._id}" class="card-book">
-                                        <a class="gallery-link" href="${data[i].book_image}"><img class="img-example" src="${data[i].book_image}" alt="${data[i].title}"></img></a>
+                        for (let book of books) {
+                            if (book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail) {
+                                booksCard += `
+                                    <li data-category="${book.id}" class="card-book">
+                                        <a class="gallery-link" href="${book.volumeInfo.canonicalVolumeLink}">
+                                            <img class="img-example" src="${book.volumeInfo.imageLinks.thumbnail}" alt="${book.volumeInfo.title}">
+                                        </a>
                                         <div class="textUpHover">Quick view</div>
                                         <div class="card-book-container">
-                                            <p>${data[i].title}</p>
-                                            <p>${data[i].author}</p>
+                                            <p>${book.volumeInfo.title}</p>
+                                            <p>${book.volumeInfo.authors}</p>
                                             <div class="rank-book-container">
                                                 <svg fill="none">
                                                     <use id="star" href="${sprite}#star"></use>
                                                 </svg>
-                                                <span>${data[i].rank_last_week}</span>
+                                                <span>${book.volumeInfo.pageCount}</span>
                                             </div>
                                         </div>
                                     </li>
                                 `;
+                            } else {
+                                console.log('Отсутствует изображение для книги');
                             }
+                        }
             booksCard += `</ul>
                     </li>`;
         listOne.innerHTML = booksCard;
         
     } catch(error) {
-        iziToast.error({
-            title: "Error",
-            message: error.message,
-        });
+        console.log('Ошибка при выполнении запроса: ' + error);
     } finally {
         simpleLightbox();
         scrollUp();
@@ -212,3 +199,53 @@ async function setColorGaleryList(e) {
         e.target.classList.add('selected');
     }
 }
+
+// async function mainGalery() {
+//     try {
+//         loadingIndicator.style.display = 'flex';
+//         const response = await axios.get(`https://books-backend.p.goit.global/books/top-books`);
+//         const data = response.data;
+//         let booksCard = ``;
+        
+//         const widthWindow = getWidthWindow();
+//         for (let i in data) {
+//             booksCard += `
+//                     <li class="list-all-cards-category"><div class="content-card-one-categ"><h2 class="category-books">${data[i].list_name}</h2>
+//                         <ul id="${data[i].list_name}" class="list-cards-category">`;
+            
+//             for (let j in data[i].books) {
+//                 booksCard += `
+//                     <li data-category="${data[i].books[j]._id}" class="card-book">
+//                         <a id="${data[i].books[j]._id}" class="gallery-link" href="${data[i].books[j].book_image}"><img class="img-example" src="${data[i].books[j].book_image}" alt="${data[i].books[j].title}. Category: ${data[i].list_name}"></img></a>
+//                         <div class="textUpHover">Quick view</div>
+//                         <div class="card-book-container">
+//                             <p>${data[i].books[j].title}</p>
+//                             <p>${data[i].books[j].author}</p>
+//                             <div class="rank-book-container">
+//                                 <svg fill="none">
+//                                     <use id="star" href="${sprite}#star"></use>
+//                                 </svg>
+//                                 <span>${data[i].books[j].rank_last_week}</span>
+//                             </div>
+//                         </div>
+//                     </li>
+//                 `;
+//                 if (widthWindow == j) break;
+//             }
+//             booksCard += `</ul></div>
+//                         <button class="card-books-category-button" type="button" data-category="${data[i].list_name}">See more</button>
+//                     </li>`;
+//         }
+//         listOne.innerHTML = booksCard;
+        
+//     } catch(error) {
+//         iziToast.error({
+//             title: "Error",
+//             message: error.message,
+//         });
+//     } finally {
+//         simpleLightbox();
+//         scrollUp();
+//         loadingIndicator.style.display = 'none';
+//     }
+// }
